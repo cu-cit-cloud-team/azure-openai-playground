@@ -78,6 +78,7 @@
       "prettier"
     ],
     "parserOptions": {
+      "project": "./tsconfig.json",
       "ecmaVersion": "latest",
       "allowImportExportEverywhere": true,
       "parser": "@typescript-eslint/parser",
