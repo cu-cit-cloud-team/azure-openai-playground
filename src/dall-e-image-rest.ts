@@ -6,17 +6,35 @@ import got from 'got';
 
 import { wait } from './lib/helpers.js';
 
+// define interfaces used for the response from the DALL-E image generation
+interface ImageOperationResponseResult {
+  caption: string;
+  contentUrl?: string;
+  contentUrlExpiresAt?: string;
+  createdDateTime: string;
+}
+
+interface ImageOperationResponse {
+  id: string;
+  result: ImageOperationResponseResult;
+  status: string;
+}
+
 // load environment variables from .env file
 dotenv.config();
 
 // destructure environment variables we need
-const {
-  OPENAI_BASE_PATH,
-  OPENAI_API_KEY,
-  OPENAI_AZURE_MODEL_DEPLOYMENT,
-  OPENAI_AZURE_DALLE_API_VERSION,
-} = process.env;
+const { OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION } =
+  process.env;
 
+if (!OPENAI_BASE_PATH || !OPENAI_API_KEY || !OPENAI_AZURE_DALLE_API_VERSION) {
+  throw new Error(
+    'Missing one or more required environment variables: OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION',
+  );
+  process.exit(1);
+}
+
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const { hrtime } = process;
   const debugStartTime = hrtime();
@@ -30,8 +48,8 @@ const {
   // build the endpoint URL
   const apiUrl = `${OPENAI_BASE_PATH}dalle/text-to-image?api-version=${OPENAI_AZURE_DALLE_API_VERSION}`;
 
-  // set the prompt for the image
-  const dallePrompt = oneLineTrim`
+  // set the prompt for the DALL-E image generation
+  const imagePrompt = oneLineTrim`
     Detailed image of a clocktower with a pumpkin on the very top of it's spire
   `;
 
@@ -44,7 +62,7 @@ const {
       'Content-Type': 'application/json',
     },
     json: {
-      caption: dallePrompt,
+      caption: imagePrompt,
       resolution: '1024x1024',
       format: 'b64_json',
     },
@@ -58,11 +76,10 @@ const {
 
   // set a couple variables used in the loop
   let retryNumber = 0;
-  let imageUrl = undefined;
+  let imageUrl: string | undefined = undefined;
 
   // make requests to the operation url until the image url is returned
   while (imageUrl === undefined) {
-    console.log(retryNumber);
     const imageOperationResponse = await got({
       url: imageOperationUrl,
       method: 'GET',
@@ -71,7 +88,13 @@ const {
         'Content-Type': 'application/json',
       },
     });
-    imageUrl = JSON.parse(imageOperationResponse.body).result.contentUrl;
+
+    declare let imageOperationResponseBody: ImageOperationResponse;
+    let imageOperationResponseBody = imageOperationResponse.body;
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    imageOperationResponseBody = JSON.parse(imageOperationResponseBody);
+    imageUrl = imageOperationResponseBody.result.contentUrl;
     // exponentially back-off based on retry number
     await wait(2 ** retryNumber * 10);
     retryNumber += 1;
@@ -95,7 +118,7 @@ const {
       encoding: 'base64',
     });
     // output original prompt and image location
-    console.log(dallePrompt);
+    console.log(imagePrompt);
     console.log(`Image saved to: '../generated-images/${imageId}.png'`);
   });
 
