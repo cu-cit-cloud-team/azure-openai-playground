@@ -8,7 +8,8 @@
   "scripts": {
     "build": "tsc",
     "declarations": "rimraf types/ && tsc --emitDeclarationOnly",
-    "dev": "cross-env NODE_ENV=development tsx --trace-warnings --inspect=0.0.0.0:9229 ./src/index.ts",
+    "dev": "cross-env NODE_ENV=development LOCAL_DEV=true tsx --trace-warnings ",
+    "prod": "cross-env NODE_ENV=production ts-node ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "typecheck": "tsc --noEmit",
     "typedoc": "typedoc --out docs --entryPointStrategy expand ./src --excludeInternal false --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
