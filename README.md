@@ -1,4 +1,4 @@
-# azure-openai-playground
+# ct-azure-openai-playground
 
 Misc. experiments with Azure OpenAI.
 
@@ -9,5 +9,7 @@ and where the official Node.js library does and doesn't work.
 
 Examples use Node.js/TypeScript to run some basic examples against the
 Azure OpenAI service.
+
+Related Confluence page: <https://confluence.cornell.edu/display/CLOUD/Azure+OpenAI+Service>
 
 ### Documentation in Progress
