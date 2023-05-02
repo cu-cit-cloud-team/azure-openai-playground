@@ -4,6 +4,10 @@ import dotenv from 'dotenv';
 import fs from 'node:fs';
 import got from 'got';
 
+import {
+  ImageOperationResponse,
+  ImageOperationResponseResult,
+} from './lib/dall-e.js';
 import { wait } from './lib/helpers.js';
 
 // define typescript resources
