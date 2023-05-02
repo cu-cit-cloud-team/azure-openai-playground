@@ -26,7 +26,11 @@ if (
   !OPENAI_AZURE_MODEL_DEPLOYMENT
 ) {
   throw new Error(
-    'Missing one or more required environment variables: OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT',
+    oneLineTrim`
+      Missing one or more required environment variables:
+
+      OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
+    `,
   );
   process.exit(1);
 }
@@ -57,9 +61,10 @@ const textToAnalyze = oneLineTrim`
 const prompt = oneLineTrim`
   Analyze the following text and return a JSON array of objects containing unique unicode v15
   emojis that best represent it. Each object in the array should contain the emoji, the
-  markdown short code for the emoji, and the reasoning for choosing it.
+  markdown short code for the emoji, and the reasoning for choosing it. Don't return any
+  duplicate emojis.
 
-  Analyze the following text and return only the array of objects as JSON:
+  Analyze the following text and return only the JSON array of objects:
 
   ${textToAnalyze}
 `;
