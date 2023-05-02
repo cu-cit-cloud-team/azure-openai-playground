@@ -131,3 +131,4 @@ dist
 
 .history
 scratch*.js
+scratch*.ts
