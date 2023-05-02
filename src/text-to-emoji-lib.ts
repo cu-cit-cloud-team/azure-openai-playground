@@ -35,6 +35,10 @@ if (
   process.exit(1);
 }
 
+// get current high-resolution real-time from process in nanoseconds
+const { hrtime } = process;
+const debugStartTime = hrtime();
+
 // create the (Azure) OpenAI client configuration
 const clientConfig = new Configuration({
   baseOptions: {
@@ -78,3 +82,9 @@ const prompt = oneLineTrim`
 // assume output is good and parse it
 
 console.log(JSON.parse(results));
+// output execution time in milliseconds
+const debugEndTime = hrtime(debugStartTime);
+const debugOutput = `\nExecution time: ${
+  debugEndTime[0] * 1000 + debugEndTime[1] / 1000000
+}ms`;
+console.log(debugOutput);
