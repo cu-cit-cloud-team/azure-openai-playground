@@ -27,7 +27,6 @@
   "dependencies": {
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
-    "dayjs": "1.11.7",
     "dotenv": "16.0.3",
     "got": "12.6.0",
     "openai": "3.2.1",
