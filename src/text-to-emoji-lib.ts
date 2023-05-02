@@ -74,14 +74,23 @@ const prompt = oneLineTrim`
 `;
 
 // make request to generate the completion
-  prompt,
-  temperature: 0.2,
-  max_tokens: 1000,
-});
+const gptExample = await openAIClient
+  .createCompletion({
+    prompt,
+    temperature: 0.2,
+    max_tokens: 1000,
+    model: OPENAI_AZURE_MODEL_DEPLOYMENT,
+  })
+  .catch((error) => {
+    // output error and stop processing
+    console.error(error);
+    process.exit(1);
+  });
 
 // assume output is good and parse it
-
+const results = gptExample.data.choices[0]!.text!.trim();
 console.log(JSON.parse(results));
+
 // output execution time in milliseconds
 const debugEndTime = hrtime(debugStartTime);
 const debugOutput = `\nExecution time: ${
