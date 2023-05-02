@@ -6,7 +6,9 @@ import got from 'got';
 
 import { wait } from './lib/helpers.js';
 
-// define interfaces used for the response from the DALL-E image generation
+// define typescript resources
+declare let imageOperationResponseBody: ImageOperationResponse;
+
 interface ImageOperationResponseResult {
   caption: string;
   contentUrl?: string;
@@ -76,7 +78,7 @@ if (!OPENAI_BASE_PATH || !OPENAI_API_KEY || !OPENAI_AZURE_DALLE_API_VERSION) {
 
   // set a couple variables used in the loop
   let retryNumber = 0;
-  let imageUrl: string | undefined = undefined;
+  let imageUrl = undefined;
 
   // make requests to the operation url until the image url is returned
   while (imageUrl === undefined) {
@@ -89,12 +91,13 @@ if (!OPENAI_BASE_PATH || !OPENAI_API_KEY || !OPENAI_AZURE_DALLE_API_VERSION) {
       },
     });
 
-    declare let imageOperationResponseBody: ImageOperationResponse;
-    let imageOperationResponseBody = imageOperationResponse.body;
+    const imageOperationResponseBody = JSON.parse(
+      imageOperationResponse.body,
+    ) as ImageOperationResponse;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    imageOperationResponseBody = JSON.parse(imageOperationResponseBody);
-    imageUrl = imageOperationResponseBody.result.contentUrl;
+    const imageResult: ImageOperationResponseResult =
+      imageOperationResponseBody.result;
+    imageUrl = imageResult.contentUrl;
     // exponentially back-off based on retry number
     await wait(2 ** retryNumber * 10);
     retryNumber += 1;
