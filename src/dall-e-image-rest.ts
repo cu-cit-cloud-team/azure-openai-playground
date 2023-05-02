@@ -10,20 +10,6 @@ import {
 } from './lib/dall-e.js';
 import { wait } from './lib/helpers.js';
 
-// define typescript resources
-interface ImageOperationResponseResult {
-  caption: string;
-  contentUrl?: string;
-  contentUrlExpiresAt?: string;
-  createdDateTime: string;
-}
-
-interface ImageOperationResponse {
-  id: string;
-  result: ImageOperationResponseResult;
-  status: string;
-}
-
 // load environment variables from .env file
 dotenv.config();
 
@@ -31,13 +17,19 @@ dotenv.config();
 const { OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION } =
   process.env;
 
+// check that all required environment variables are set
 if (!OPENAI_BASE_PATH || !OPENAI_API_KEY || !OPENAI_AZURE_DALLE_API_VERSION) {
   throw new Error(
-    'Missing one or more required environment variables: OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION',
+    oneLineTrim`
+      Missing one or more required environment variables:
+
+      OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION
+    `,
   );
   process.exit(1);
 }
 
+// get current high-resolution real-time from process in nanoseconds
 const { hrtime } = process;
 const debugStartTime = hrtime();
 
@@ -52,8 +44,8 @@ const apiUrl = `${OPENAI_BASE_PATH}dalle/text-to-image?api-version=${OPENAI_AZUR
 
 // set the prompt for the DALL-E image generation
 const imagePrompt = oneLineTrim`
-    Detailed image of a clocktower with a pumpkin on the very top of it's spire
-  `;
+  Detailed image of a clocktower with a pumpkin on the very top of it's spire
+`;
 
 // make request to generate the image
 const createImageResponse = await got({
