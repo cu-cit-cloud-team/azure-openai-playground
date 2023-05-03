@@ -2,7 +2,20 @@ import { oneLineTrim } from 'common-tags';
 import dotenv from 'dotenv';
 import got from 'got';
 
-import { CompletionResponse } from './lib/completion.js';
+export interface CompletionResponse {
+  id: string;
+  object: string;
+  created: number;
+  model: string;
+  choices: CompletionChoice[];
+}
+
+export interface CompletionChoice {
+  text: string;
+  index: number;
+  logprobs: unknown;
+  finish_reason: string;
+}
 
 // load environment variables from .env file
 dotenv.config();

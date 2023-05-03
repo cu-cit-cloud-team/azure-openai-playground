@@ -4,11 +4,20 @@ import dotenv from 'dotenv';
 import fs from 'node:fs';
 import got from 'got';
 
-import {
-  ImageOperationResponse,
-  ImageOperationResponseResult,
-} from './lib/dall-e.js';
-import { wait } from './lib/helpers.js';
+import { wait } from '../lib/helpers.js';
+
+export interface ImageOperationResponseResult {
+  caption: string;
+  contentUrl?: string;
+  contentUrlExpiresAt?: string;
+  createdDateTime: string;
+}
+
+export interface ImageOperationResponse {
+  id: string;
+  result: ImageOperationResponseResult;
+  status: string;
+}
 
 // load environment variables from .env file
 dotenv.config();
@@ -109,12 +118,16 @@ await got({
   },
 }).then((response) => {
   // write image to local file
-  fs.writeFileSync(`./generated-images/${imageId}.png`, response.body, {
-    encoding: 'base64',
-  });
+  fs.writeFileSync(
+    `./dall-e-image-rest/generated-images/${imageId}.png`,
+    response.body,
+    {
+      encoding: 'base64',
+    },
+  );
   // output original prompt and image location
   console.log(imagePrompt);
-  console.log(`Image saved to: '../generated-images/${imageId}.png'`);
+  console.log(`Image saved to: './generated-images/${imageId}.png'`);
 });
 
 // set and output debug/timing info
