@@ -6,13 +6,13 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "declarations": "rimraf types/ && tsc --emitDeclarationOnly",
     "dev": "cross-env NODE_ENV=development LOCAL_DEV=true tsx --trace-warnings ",
+    "image-generation-demo": "npm run prod -- ./src/dall-e-image-rest/index.ts",
     "prod": "cross-env NODE_ENV=production ts-node ",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "typecheck": "tsc --noEmit",
-    "typedoc": "typedoc --out docs --entryPointStrategy expand ./src --excludeInternal false --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
-    "typedoc-html": "typedoc --out docs/docs --entryPointStrategy expand ./src --excludeInternal false --excludeNotDocumented false --readme none"
+    "text-completion-demo": "npm run prod -- ./src/text-to-emoji-lib/index.ts",
+    "text-completion-rest-demo": "npm run prod -- ./src/text-to-emoji-rest/index.ts",
+    "typecheck": "tsc --noEmit"
   },
   "engines": {
     "node": ">= 18.x",
