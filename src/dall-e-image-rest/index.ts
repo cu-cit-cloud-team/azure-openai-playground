@@ -119,7 +119,7 @@ await got({
 }).then((response) => {
   // write image to local file
   fs.writeFileSync(
-    `./dall-e-image-rest/generated-images/${imageId}.png`,
+    `./src/dall-e-image-rest/generated-images/${imageId}.png`,
     response.body,
     {
       encoding: 'base64',
