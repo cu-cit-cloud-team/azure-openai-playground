@@ -33,9 +33,9 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
     - `OPENAI_AZURE_API_VERSION` set to Azure OpenAI API Version, supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
     - `OPENAI_AZURE_DALLE_API_VERSION` if using DALL-E, set to Azure OpenAI DALL-E API Version (not in official docs yet, "2022-08-03-preview" is the only working version I've found)
 1. Run one of the demos:
-    - `npm run text-completion-demo` (demo info)
-    - `npm run text-completion-rest-demo` (demo info)
-    - `npm run image-generation-demo` (demo info)
+    - `npm run text-completion-demo` ([demo info](#text-completion-demo-using-official-nodejs-openai-library))
+    - `npm run text-completion-rest-demo` ([demo info](#text-completion-demo-using-rest-api))
+    - `npm run image-generation-demo` ([demo info](#image-generation-demo-using-rest-api))
 
 ## Notes/Lessons Learned
 
