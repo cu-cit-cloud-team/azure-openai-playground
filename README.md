@@ -65,7 +65,7 @@ const openAiClient = new OpenAIApi(clientConfig);
 
 ### Expected Azure OpenAI Node.js Client Setup (NOT WORKING)
 
-While the official OpenAI Node.js library is NOT yet supported for Azure OpenAI Services, the following is what I would 
+While the official OpenAI Node.js library is NOT yet supported for Azure OpenAI Services, the following is what I would
 expect the setup to look like once it is supported:
 
 ```javascript
@@ -160,19 +160,19 @@ Example output:
 
 ### Text Completion Demo (using REST API)
 
-Uses [Got HTTP request library](https://github.com/sindresorhus/got) to access an Azure OpenAI resource endpoint and generate 
+Uses [Got HTTP request library](https://github.com/sindresorhus/got) to access an Azure OpenAI resource endpoint and generate
 a completion with a text model.
 
-This demo does the same as the above demo, but uses the REST API directly (vs the official Node.js OpenAI library). See above 
+This demo does the same as the above demo, but uses the REST API directly (vs the official Node.js OpenAI library). See above
 for more details, input text, and example output.
 
 ### Image Generation Demo (using REST API)
 
-Uses [Got HTTP request library](https://github.com/sindresorhus/got) to access an Azure OpenAI resource endpoint and generate an 
+Uses [Got HTTP request library](https://github.com/sindresorhus/got) to access an Azure OpenAI resource endpoint and generate an
 image with DALL-E.
 
-Demo takes a text prompt and sends it to the DALL-E endpoint to request an image be generated. It then reads the response headers 
-to get the URL of the image operation and polls that image operation URL (using exponential back-off) until the image is ready. 
+Demo takes a text prompt and sends it to the DALL-E endpoint to request an image be generated. It then reads the response headers
+to get the URL of the image operation and polls that image operation URL (using exponential back-off) until the image is ready.
 Once the image is ready, it downloads the image and saves it locally as a PNG file.
 
 Input text:
@@ -180,5 +180,5 @@ Input text:
 
 Example generated images:
 
-![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/30a51b59-5613-41c0-b052-af2d9c47035c1683144799.jpg) ![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/5812c9b8-02b7-4fb3-b30c-67d7ed0206321683144799.jpg) 
+![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/30a51b59-5613-41c0-b052-af2d9c47035c1683144799.jpg) ![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/5812c9b8-02b7-4fb3-b30c-67d7ed0206321683144799.jpg)
 ![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/59890c0f-d9e8-4c27-ba87-5e1a40d9d22d1683144799.jpg) ![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/bc85ca68-be67-4152-bd5d-85e62656bf4c1683144799.jpg)
