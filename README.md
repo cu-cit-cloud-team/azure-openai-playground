@@ -132,28 +132,28 @@ Example output:
 [
   {
     "emoji": "🤝",
-    "markdown": ":handshake:",
-    "reasoning": "To represent the collaboration between Cornell and its students, the people of New York, and others around the world."
+    "shortCode": ":handshake:",
+    "reason": "To represent the collaboration between Cornell and its students, the people of New York, and others around the world."
   },
   {
     "emoji": "📚",
-    "markdown": ":books:",
-    "reasoning": "To represent Cornell's mission to discover, preserve, and disseminate knowledge."
+    "shortCode": ":books:",
+    "reason": "To represent Cornell's mission to discover, preserve, and disseminate knowledge."
   },
   {
     "emoji": "🌎",
-    "markdown": ":earth_americas:",
-    "reasoning": "To represent Cornell's mission to educate the next generation of global citizens."
+    "shortCode": ":earth_americas:",
+    "reason": "To represent Cornell's mission to educate the next generation of global citizens."
   },
   {
     "emoji": "🤔",
-    "markdown": ":thinking:",
-    "reasoning": "To represent Cornell's mission to promote a culture of broad inquiry."
+    "shortCode": ":thinking:",
+    "reason": "To represent Cornell's mission to promote a culture of broad inquiry."
   },
   {
     "emoji": "🙌",
-    "markdown": ":raised_hands:",
-    "reasoning": "To represent Cornell's mission to enhance the lives and livelihoods of its students."
+    "shortCode": ":raised_hands:",
+    "reason": "To represent Cornell's mission to enhance the lives and livelihoods of its students."
   }
 ]
 ```
