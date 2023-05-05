@@ -65,16 +65,25 @@ const textToAnalyze = oneLineTrim`
   lives and livelihoods of students, the people of New York and others around the world.
 `;
 
+// example shape of JSON response we want to get back
+const resultsShape = [
+  {
+    emoji: '',
+    shortCode: '',
+    reason: '',
+  },
+];
+
 // prompt that will be sent to (Azure) OpenAI for a completion
 const prompt = oneLineTrim`
-  Analyze the following text and return a JSON array of objects containing unique unicode v15
+  Analyze the supplied text and return a JSON array of objects containing unique unicode v15
   emojis that best represent it. Each object in the array should contain the emoji, the
   markdown short code for the emoji, and the reasoning for choosing it. Don't return any
-  duplicate emojis.
+  duplicate emojis. JSON response should have a shape of: ${JSON.stringify(
+    resultsShape,
+  )}.
 
-  Analyze the following text and return only the JSON array of objects:
-
-  ${textToAnalyze}
+  Text to analyze: ${textToAnalyze}
 `;
 
 const completionResponseBody = await got({
