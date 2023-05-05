@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import fs from 'node:fs';
 import got from 'got';
 import terminalImage from 'terminal-image';
+import yargs from 'yargs';
 
 import { wait } from '../lib/helpers.js';
 
@@ -19,6 +20,18 @@ export interface ImageOperationResponse {
   result: ImageOperationResponseResult;
   status: string;
 }
+
+interface Arguments {
+  [x: string]: unknown;
+  a: boolean;
+  b: string;
+  c: number | undefined;
+  d: (string | number)[] | undefined;
+  e: number;
+  f: string | undefined;
+}
+
+const argv = yargs(process.argv.slice(2)).argv as unknown as Arguments;
 
 // load environment variables from .env file
 dotenv.config();
@@ -53,9 +66,11 @@ const requestHeaders = {
 const apiUrl = `${OPENAI_BASE_PATH}dalle/text-to-image?api-version=${OPENAI_AZURE_DALLE_API_VERSION}`;
 
 // set the prompt for the DALL-E image generation
-const imagePrompt = oneLineTrim`
-  Detailed image of a clocktower with a pumpkin on the very top of it's spire
-`;
+const imagePrompt =
+  argv.prompt ??
+  oneLineTrim`
+    Detailed image of a clocktower with a pumpkin on the very top of it's spire
+  `;
 
 // make request to generate the image
 const createImageResponse = await got({
