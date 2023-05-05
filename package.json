@@ -30,6 +30,7 @@
     "dotenv": "16.0.3",
     "got": "12.6.0",
     "openai": "3.2.1",
+    "terminal-image": "2.0.0",
     "uuid": "9.0.0"
   },
   "devDependencies": {
