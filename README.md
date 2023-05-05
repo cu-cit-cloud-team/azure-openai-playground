@@ -173,7 +173,8 @@ image with DALL-E.
 
 Demo takes a text prompt and sends it to the DALL-E endpoint to request an image be generated. It then reads the response headers
 to get the URL of the image operation and polls that image operation URL (using exponential back-off) until the image is ready.
-Once the image is ready, it downloads the image and saves it locally as a PNG file.
+Once the image is ready, it downloads it and saves it locally as a PNG file. The terminal output will show the original prompt,
+the path to the generated image, and a preview of the image in the terminal.
 
 Input text:
 > "Detailed image of a clocktower with a pumpkin on the very top of it's spire"
