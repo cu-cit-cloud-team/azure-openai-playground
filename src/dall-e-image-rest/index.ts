@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import dotenv from 'dotenv';
 import fs from 'node:fs';
 import got from 'got';
+import terminalImage from 'terminal-image';
 
 import { wait } from '../lib/helpers.js';
 
@@ -107,6 +108,10 @@ while (imageUrl === undefined) {
 
 // create unique id to use for image name
 const imageId = uuid();
+
+// set output path as var for reuse
+const fullImagePath = `./src/dall-e-image-rest/generated-images/${imageId}.png`;
+
 // request completed image
 await got({
   url: imageUrl,
@@ -116,18 +121,21 @@ await got({
   headers: {
     ...requestHeaders,
   },
-}).then((response) => {
+}).then(async (response) => {
   // write image to local file
-  fs.writeFileSync(
-    `./src/dall-e-image-rest/generated-images/${imageId}.png`,
-    response.body,
-    {
-      encoding: 'base64',
-    },
-  );
-  // output original prompt and image location
-  console.log(imagePrompt);
-  console.log(`Image saved to: './generated-images/${imageId}.png'`);
+  fs.writeFileSync(fullImagePath, response.body, {
+    encoding: 'base64',
+  });
+
+  const imagePreview = await terminalImage.file(fullImagePath, {
+    width: '50%',
+    height: '50%',
+    preserveAspectRatio: true,
+  });
+  // output original prompt, image location, and image preview
+  console.log(`Prompt: ${imagePrompt}`);
+  console.log(`Image saved to: '${fullImagePath}'`);
+  console.log(imagePreview);
 });
 
 // set and output debug/timing info
