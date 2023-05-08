@@ -54,7 +54,7 @@
     "prettier-eslint": "15.0.1",
     "ts-node": "10.9.1",
     "tsx": "3.12.7",
-    "typedoc": "0.24.6",
+    "typedoc": "0.24.7",
     "typedoc-plugin-markdown": "3.15.3",
     "typescript": "5.0.4"
   },
