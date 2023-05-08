@@ -1,41 +1,15 @@
 #!/usr/bin/env npx ts-node --esm
 
 import { execSync } from 'node:child_process';
-import Enquirer from 'enquirer';
 import boxen from 'boxen';
 import chalk from 'chalk';
 import figlet from 'figlet';
+import inquirer from 'inquirer';
 import ora from 'ora';
 import terminalImage from 'terminal-image';
 
 const programTitle = 'Azure OpenAI Playground';
 const titleStyle = chalk.bold.blue;
-
-const goodbyeStrings = [
-  'Bye',
-  'Goodbye',
-  'Toodaloo',
-  'Farewell',
-  'Until next time',
-  'See you later',
-  'See you soon',
-  'Laters',
-  'Cheerio',
-  'Peace out',
-  'It was nice seeing you',
-  'Take it easy',
-  'Take care',
-  'Bye for now',
-  'Have a good one',
-  'Stay out of trouble',
-  'Stay classy',
-  'I look forward to our next meeting',
-  'Hasta la vista',
-  'Adios',
-  'Sayonara',
-  'Ciao',
-  'Smell you later',
-];
 
 console.log(titleStyle(figlet.textSync(programTitle)));
 
@@ -54,18 +28,17 @@ const demos = [
   },
 ];
 
-const startPrompt = new Enquirer.Select({
-  name: 'demo',
-  message: 'What demo would you like to run?',
-  choices: demos.map((demo) => demo.name),
-});
+const startChoice = await inquirer
+  .prompt({
+    type: 'list',
+    name: 'answer',
+    message: 'What demo would you like to run?',
+    choices: demos.map((demo) => demo.name),
+  })
+  .then((response) => response.answer.toLowerCase())
+  .catch((err: unknown) => 'exit');
 
-const startChoice = await startPrompt
-  .run()
-  .then((answer) => answer.toLowerCase())
-  .catch((err) => 'exit');
-
-const displayPrompt = (prompt) =>
+const displayPrompt = (prompt: string) =>
   boxen(chalk.italic.cyan(prompt), {
     borderColor: 'cyan',
     title: 'Text to Analyze',
@@ -73,18 +46,44 @@ const displayPrompt = (prompt) =>
     margin: 1,
   });
 
-const displayError = (error) =>
-  boxen(chalk.bold.redBright(prompt), {
+const displayError = (error: string) =>
+  boxen(chalk.bold.redBright(error), {
     borderColor: 'red',
     title: 'ERROR',
     padding: 1,
     margin: 1,
   });
 
-const displayGoodbye = () =>
-  chalk.bold.italic.blue(
+const displayGoodbye = () => {
+  const goodbyeStrings = [
+    'Bye',
+    'Goodbye',
+    'Toodaloo',
+    'Farewell',
+    'Until next time',
+    'See you later',
+    'See you soon',
+    'Laters',
+    'Cheerio',
+    'Peace out',
+    'It was nice seeing you',
+    'Take it easy',
+    'Take care',
+    'Bye for now',
+    'Have a good one',
+    'Stay out of trouble',
+    'Stay classy',
+    'I look forward to our next meeting',
+    'Hasta la vista',
+    'Adios',
+    'Sayonara',
+    'Ciao',
+    'Smell you later',
+  ];
+  return chalk.bold.italic.blue(
     goodbyeStrings[Math.floor(Math.random() * goodbyeStrings.length)],
   );
+};
 
 switch (startChoice) {
   case 'text to emoji':
@@ -100,20 +99,21 @@ switch (startChoice) {
 
     break;
   case 'image generation':
-    const imageGenerationPrompt = new Enquirer.Input({
-      message: 'Describe the image you would like to generate',
-      initial:
-        'Detailed image of a clocktower with a pumpkin on the very top of its spire',
-    });
-    const imageGenerationText = await imageGenerationPrompt
-      .run()
-      .then((answer) => answer)
-      .catch((err) => displayGoodbye());
+    const imageGenerationPrompt = await inquirer
+      .prompt({
+        type: 'input',
+        name: 'answer',
+        message: 'Describe the image you would like to generate',
+        default:
+          'Detailed image of a clocktower with a pumpkin on the very top of its spire',
+      })
+      .then((response) => response.answer)
+      .catch((err: unknown) => displayGoodbye());
     const imageSpinner = ora(
       'Generating image (this can take a little while)',
     ).start();
     const imageResults = await execSync(
-      `npm run image-generation-demo --silent -- --prompt "${imageGenerationText}" --display false`,
+      `npm run image-generation-demo --silent -- --prompt "${imageGenerationPrompt}" --display false`,
     );
     imageSpinner.succeed();
     console.log(imageResults.toString());
@@ -128,7 +128,6 @@ switch (startChoice) {
 
     break;
   case 'exit':
-  default:
     console.log(displayGoodbye());
 
     break;
