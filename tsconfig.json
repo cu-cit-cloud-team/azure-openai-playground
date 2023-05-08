@@ -13,10 +13,7 @@
     "lib": ["ESNext"],
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationDir": "types",
-    "declarationMap": true
+    "forceConsistentCasingInFileNames": true
   },
   "ts-node": {
     "esm": true,
