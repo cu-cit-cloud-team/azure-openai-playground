@@ -73,7 +73,7 @@ switch (startChoice) {
 
     const spinner = ora('Generating JSON').start();
     const results = await execSync(
-      `npm run text-completion-rest-demo --silent -- --prompt "${emojiGenerationPrompt}" --display false`,
+      `npm run text-completion-rest-demo --silent -- --prompt "${emojiGenerationPrompt}"`,
     );
     spinner.succeed();
     console.log(JSON.parse(results.toString()));
