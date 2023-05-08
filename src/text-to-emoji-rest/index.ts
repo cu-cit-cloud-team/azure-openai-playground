@@ -26,6 +26,7 @@ const {
   OPENAI_API_KEY,
   OPENAI_AZURE_MODEL_DEPLOYMENT,
   OPENAI_AZURE_API_VERSION,
+  NODE_ENV,
 } = process.env;
 
 // check that all required environment variables are set
@@ -113,9 +114,11 @@ const completion = completionResponse.choices[0].text.trim();
 
 console.log(completion);
 
-// output execution time in milliseconds
-const debugEndTime = hrtime(debugStartTime);
-const debugOutput = `\nExecution time: ${
-  debugEndTime[0] * 1000 + debugEndTime[1] / 1000000
-}ms`;
-console.log(debugOutput);
+if (NODE_ENV === 'development') {
+  // output execution time in milliseconds
+  const debugEndTime = hrtime(debugStartTime);
+  const debugOutput = `\nExecution time: ${
+    debugEndTime[0] * 1000 + debugEndTime[1] / 1000000
+  }ms`;
+  console.log(debugOutput);
+}
