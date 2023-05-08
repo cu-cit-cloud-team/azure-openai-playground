@@ -1,6 +1,7 @@
 import { oneLineTrim } from 'common-tags';
 import dotenv from 'dotenv';
 import got from 'got';
+import yargs from 'yargs';
 
 export interface CompletionResponse {
   id: string;
@@ -16,6 +17,18 @@ export interface CompletionChoice {
   logprobs: unknown;
   finish_reason: string;
 }
+
+interface Arguments {
+  [x: string]: unknown;
+  a: boolean;
+  b: string;
+  c: number | undefined;
+  d: (string | number)[] | undefined;
+  e: number;
+  f: string | undefined;
+}
+
+const argv = yargs(process.argv.slice(2)).argv as unknown as Arguments;
 
 // load environment variables from .env file
 dotenv.config();
@@ -59,11 +72,13 @@ const requestHeaders = {
 // build the endpoint URL
 const apiUrl = `${OPENAI_BASE_PATH}/openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}/completions?api-version=${OPENAI_AZURE_API_VERSION}`;
 
-const textToAnalyze = oneLineTrim`
-  Cornell’s mission is to discover, preserve and disseminate knowledge, to educate the next
-  generation of global citizens, and to promote a culture of broad inquiry throughout and
-  beyond the Cornell community. Cornell also aims, through public service, to enhance the
-  lives and livelihoods of students, the people of New York and others around the world.
+const textToAnalyze =
+  argv.prompt ??
+  oneLineTrim`
+    Cornell’s mission is to discover, preserve and disseminate knowledge, to educate the next
+    generation of global citizens, and to promote a culture of broad inquiry throughout and
+    beyond the Cornell community. Cornell also aims, through public service, to enhance the
+    lives and livelihoods of students, the people of New York and others around the world.
 `;
 
 // example shape of JSON response we want to get back
