@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
+    "clean-images": "rm ./src/dall-e-image-rest/generated-images/*.png && git co -- ./src/dall-e-image-rest/generated-images",
     "dev": "cross-env NODE_ENV=development LOCAL_DEV=true tsx --trace-warnings ",
     "image-generation-demo": "npm run prod -- ./src/dall-e-image-rest/index.ts",
     "prod": "cross-env NODE_ENV=production ts-node ",
