@@ -1,11 +1,12 @@
 {
   "name": "azure-openai-playground",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Misc. experiments with Azure OpenAI",
   "private": true,
   "type": "module",
+  "bin": "./src/cli/index.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "npx tsc",
     "clean-images": "rm ./src/dall-e-image-rest/generated-images/*.png && git co -- ./src/dall-e-image-rest/generated-images",
     "dev": "cross-env NODE_ENV=development LOCAL_DEV=true tsx --trace-warnings ",
     "image-generation-demo": "npm run prod -- ./src/dall-e-image-rest/index.ts",
@@ -26,9 +27,12 @@
   },
   "license": "MIT",
   "dependencies": {
+    "chalk": "5.2.0",
+    "commander": "10.0.1",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dotenv": "16.0.3",
+    "figlet": "1.6.0",
     "got": "12.6.0",
     "openai": "3.2.1",
     "terminal-image": "2.0.0",
