@@ -37,8 +37,12 @@ const argv = yargs(process.argv.slice(2)).argv as unknown as Arguments;
 dotenv.config();
 
 // destructure environment variables we need
-const { OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION } =
-  process.env;
+const {
+  OPENAI_BASE_PATH,
+  OPENAI_API_KEY,
+  OPENAI_AZURE_DALLE_API_VERSION,
+  NODE_ENV,
+} = process.env;
 
 // check that all required environment variables are set
 if (!OPENAI_BASE_PATH || !OPENAI_API_KEY || !OPENAI_AZURE_DALLE_API_VERSION) {
@@ -71,6 +75,12 @@ const imagePrompt =
   oneLineTrim`
     Detailed image of a clocktower with a pumpkin on the very top of it's spire
   `;
+
+// set whether or not to display the image in the terminal
+const suppressImageDisplay = argv.display === 'false';
+
+// set whether or not to display the prompt in the terminal output
+const suppressPrompt = suppressImageDisplay;
 
 // make request to generate the image
 const createImageResponse = await got({
@@ -142,20 +152,26 @@ await got({
     encoding: 'base64',
   });
 
-  const imagePreview = await terminalImage.file(fullImagePath, {
-    width: '50%',
-    height: '50%',
-    preserveAspectRatio: true,
-  });
   // output original prompt, image location, and image preview
-  console.log(`Prompt: ${imagePrompt}`);
+  if (!suppressPrompt) {
+    console.log(`Prompt: ${imagePrompt}`);
+  }
   console.log(`Image saved to: '${fullImagePath}'`);
-  console.log(imagePreview);
+  if (!suppressImageDisplay) {
+    const imagePreview = await terminalImage.file(fullImagePath, {
+      width: '50%',
+      height: '50%',
+      preserveAspectRatio: true,
+    });
+    console.log(imagePreview);
+  }
 });
 
-// set and output debug/timing info
-const debugEndTime = hrtime(debugStartTime);
-const debugOutput = `\nExecution time: ${
-  debugEndTime[0] * 1000 + debugEndTime[1] / 1000000
-}ms`;
-console.log(debugOutput);
+if (NODE_ENV === 'development') {
+  // set and output debug/timing info
+  const debugEndTime = hrtime(debugStartTime);
+  const debugOutput = `\nExecution time: ${
+    debugEndTime[0] * 1000 + debugEndTime[1] / 1000000
+  }ms`;
+  console.log(debugOutput);
+}
