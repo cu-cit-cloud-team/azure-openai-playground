@@ -4,7 +4,9 @@
   "description": "Misc. experiments with Azure OpenAI",
   "private": true,
   "type": "module",
-  "bin": "./src/cli/index.ts",
+  "bin": {
+    "aop": "./src/cli/index.ts"
+  },
   "scripts": {
     "build": "npx tsc",
     "clean-images": "rm ./src/dall-e-image-rest/generated-images/*.png && git co -- ./src/dall-e-image-rest/generated-images",
@@ -27,14 +29,16 @@
   },
   "license": "MIT",
   "dependencies": {
+    "boxen": "7.1.0",
     "chalk": "5.2.0",
-    "commander": "10.0.1",
     "common-tags": "1.8.2",
     "cross-env": "7.0.3",
     "dotenv": "16.0.3",
     "figlet": "1.6.0",
+    "enquirer": "2.3.6",
     "got": "12.6.0",
     "openai": "3.2.1",
+    "ora": "6.3.0",
     "terminal-image": "2.0.0",
     "uuid": "9.0.0",
     "yargs": "17.7.2"
