@@ -1,6 +1,6 @@
 #!/usr/bin/env npx ts-node --esm
 
-import { execSync } from 'node:child_process';
+import { exec } from 'node:child_process';
 import { oneLineTrim } from 'common-tags';
 import boxen from 'boxen';
 import chalk from 'chalk';
@@ -9,7 +9,12 @@ import inquirer from 'inquirer';
 import ora from 'ora';
 import terminalImage from 'terminal-image';
 
-import { showError, showGoodbye, showPrompt } from '../lib/helpers.js';
+import {
+  execNpmCommand,
+  showError,
+  showGoodbye,
+  showPrompt,
+} from '../lib/helpers.js';
 
 // set title text and style
 const programTitle = 'Azure OpenAI Playground';
@@ -71,12 +76,15 @@ switch (startChoice) {
 
     // console.log(showPrompt(emojiGenerationPrompt));
 
-    const spinner = ora('Generating JSON').start();
-    const results = await execSync(
-      `npm run text-completion-rest-demo --silent -- --prompt "${emojiGenerationPrompt}"`,
-    );
-    spinner.succeed();
-    console.log(JSON.parse(results.toString()));
+    const emojiSpinner = ora('Generating JSON').start();
+    execNpmCommand({
+      command: 'text-completion-rest-demo',
+      flags: `--prompt "${emojiGenerationPrompt}"`,
+      callback: (stdout: string) => {
+        console.log(JSON.parse(stdout));
+      },
+      spinnerRef: emojiSpinner,
+    });
 
     break;
   case 'image generation':
@@ -93,21 +101,28 @@ switch (startChoice) {
         console.log(showError(err));
         console.log(showGoodbye());
       });
+
     const imageSpinner = ora(
       'Generating image (this can take a little while)',
     ).start();
-    const imageResults = await execSync(
-      `npm run image-generation-demo --silent -- --prompt "${imageGenerationPrompt}" --display false`,
-    );
-    imageSpinner.succeed();
-    console.log(imageResults.toString());
-    const imagePath = imageResults.toString().split("'")[1].replace("'", '');
-    const imagePreview = await terminalImage.file(imagePath, {
-      width: '50%',
-      height: '50%',
-      preserveAspectRatio: true,
+
+    const imageGenCallback = async (stdout: string) => {
+      console.log(stdout);
+      const imagePath = stdout.toString().split("'")[1].replace("'", '');
+      const imagePreview = await terminalImage.file(imagePath, {
+        width: '50%',
+        height: '50%',
+        preserveAspectRatio: true,
+      });
+      console.log(imagePreview);
+    };
+
+    execNpmCommand({
+      command: 'image-generation-demo',
+      flags: `--prompt "${imageGenerationPrompt}" --display false`,
+      callback: imageGenCallback,
+      spinnerRef: imageSpinner,
     });
-    console.log(imagePreview);
 
     break;
   case 'exit':
