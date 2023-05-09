@@ -1,5 +1,7 @@
+import { exec } from 'node:child_process';
 import boxen from 'boxen';
 import chalk from 'chalk';
+import { Ora } from 'ora';
 
 export const wait = (ms: number): Promise<void> =>
   new Promise((res) => setTimeout(res, ms));
@@ -48,5 +50,33 @@ export const showGoodbye = () => {
   ];
   return chalk.bold.italic.blue(
     goodbyeStrings[Math.floor(Math.random() * goodbyeStrings.length)],
+  );
+};
+
+export interface ExecNpmCommandParams {
+  command: string;
+  flags: string;
+  callback: Function;
+  spinnerRef: Ora | null;
+}
+
+export const execNpmCommand = ({
+  command,
+  flags,
+  callback,
+  spinnerRef = null,
+}: ExecNpmCommandParams) => {
+  exec(
+    `npm run ${command} --silent -- ${flags}`,
+    async (error, stdout, stderr) => {
+      if (error) {
+        console.log(showError(error));
+        console.log(showGoodbye());
+      }
+      if (spinnerRef) {
+        spinnerRef.succeed();
+      }
+      callback(stdout);
+    },
   );
 };
