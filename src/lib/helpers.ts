@@ -49,7 +49,7 @@ export const showGoodbye = () => {
     'Smell you later',
   ];
   return chalk.bold.italic.blue(
-    goodbyeStrings[Math.floor(Math.random() * goodbyeStrings.length)],
+    `👋 ${goodbyeStrings[Math.floor(Math.random() * goodbyeStrings.length)]}`,
   );
 };
 
@@ -57,21 +57,23 @@ export interface ExecNpmCommandParams {
   command: string;
   flags: string;
   callback: Function;
-  spinnerRef: Ora | null;
+  spinnerRef?: Ora;
 }
 
 export const execNpmCommand = ({
   command,
   flags,
   callback,
-  spinnerRef = null,
+  spinnerRef = undefined,
 }: ExecNpmCommandParams) => {
   exec(
     `npm run ${command} --silent -- ${flags}`,
     async (error, stdout, stderr) => {
       if (error) {
+        if (spinnerRef) {
+          spinnerRef.fail();
+        }
         console.log(showError(error));
-        console.log(showGoodbye());
       }
       if (spinnerRef) {
         spinnerRef.succeed();
