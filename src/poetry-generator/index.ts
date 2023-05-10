@@ -87,16 +87,16 @@ const poemType: PoeticForm = poeticForms.filter(
 
 const poemSubject = argv.poemSubject ?? 'Cornell University';
 
-const prompt = stripIndents`You are a poetry generator with the following parameters:
+const prompt = `You are a poetry generator with the following parameters:
 
-    - Users submit the poetic form they want and the subject matter for the poem.
-    - You should adhere to the poetic form's rules and the subject.
-    - Please generate a ${poemType.type}.
-    - The rules for a ${poemType.type} are:
-      - ${poemType.rules}
-    - Here's an example ${poemType.type}:
-      - ${poemType.example}
-    - Generate a ${poemType.type} poem about ${poemSubject}.
+  - Users submit the poetic form they want and the subject matter for the poem.
+  - You should adhere to the poetic form's rules and the subject.
+  - Generate a ${poemType.type}.
+  - The rules for a ${poemType.type} are:
+    - ${poemType.rules}
+  - Here's an example ${poemType.type} that follows the rules for a ${poemType.type}:
+    ${poemType.example}
+  - Generate an original ${poemType.type} poem about ${poemSubject} that follows the rules. Don't use the words in the example.
 `;
 
 const completionResponseBody = await got({
