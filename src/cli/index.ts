@@ -11,6 +11,7 @@ import terminalImage from 'terminal-image';
 
 import {
   execNpmCommand,
+  poeticForms,
   showError,
   showGoodbye,
   showPrompt,
@@ -32,7 +33,10 @@ const demos = [
   {
     name: 'Image Generation',
     npmCommand: 'image-generation-demo',
-    allowsInput: true,
+  },
+  {
+    name: 'Poetry Generator',
+    npmCommand: 'poetry-generation-demo',
   },
   {
     name: 'Exit',
@@ -122,6 +126,56 @@ switch (startChoice) {
       flags: `--prompt "${imageGenerationPrompt}" --display false`,
       callback: imageGenCallback,
       spinnerRef: imageSpinner,
+    });
+
+    break;
+  case 'poetry generator':
+    let poeticForm;
+    let poemSubject;
+    const poetryGeneratorPrompt = await inquirer
+      .prompt({
+        type: 'list',
+        name: 'answer',
+        message: 'What poetic form would you like to generate?',
+        choices: poeticForms.map((item) => item.type).sort(),
+      })
+      .then(async (response) => {
+        [poeticForm] = poeticForms.filter(
+          (item) => item.type.toLowerCase() === response.answer.toLowerCase(),
+        );
+        // console.log(poeticForm);
+        poemSubject = await inquirer
+          .prompt({
+            type: 'input',
+            name: 'answer',
+            message: `What would you like me to write a ${poeticForm.type} about?`,
+            default: 'Cornell University',
+          })
+          .then((response) => response.answer)
+          .catch((err: unknown) => {
+            console.log(showError(err));
+            console.log(showGoodbye());
+          });
+      });
+
+    const poemSpinner = ora(`Generating poem`).start();
+
+    execNpmCommand({
+      command: 'poetry-generator-demo',
+      flags: `--poemType "${poeticForm.type}" --poemSubject "${poemSubject}" --display false`,
+      callback: (stdout: string) => {
+        const poem = stdout.toString().split(':\n\n')[1];
+        console.log(
+          boxen(poem, {
+            padding: 1,
+            margin: 1,
+            borderStyle: 'double',
+            borderColor: 'red',
+            title: `${poeticForm.type} about ${poemSubject}`,
+          }),
+        );
+      },
+      spinnerRef: poemSpinner,
     });
 
     break;
