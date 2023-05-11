@@ -56,7 +56,7 @@ const openAIClient = new OpenAIApi(clientConfig);
 
 // set to the text you want to analyze (default is CU mission)
 const textToAnalyze = oneLineTrim`
-  Cornell’s mission is to discover, preserve and disseminate knowledge, to educate the next
+  Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next
   generation of global citizens, and to promote a culture of broad inquiry throughout and
   beyond the Cornell community. Cornell also aims, through public service, to enhance the
   lives and livelihoods of students, the people of New York and others around the world.

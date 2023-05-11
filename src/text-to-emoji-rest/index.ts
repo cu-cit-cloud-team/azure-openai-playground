@@ -75,7 +75,7 @@ const apiUrl = `${OPENAI_BASE_PATH}/openai/deployments/${OPENAI_AZURE_MODEL_DEPL
 const textToAnalyze =
   argv.prompt ??
   oneLineTrim`
-    Cornell’s mission is to discover, preserve and disseminate knowledge, to educate the next
+    Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next
     generation of global citizens, and to promote a culture of broad inquiry throughout and
     beyond the Cornell community. Cornell also aims, through public service, to enhance the
     lives and livelihoods of students, the people of New York and others around the world.

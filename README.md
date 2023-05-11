@@ -122,7 +122,7 @@ with keys for the emoji, the markdown short code, and the reasoning for choosing
 NOTE: works best with a `davinci`-based text model. Tested with `text-davinci-003`.
 
 Input text:
-> "Cornell is a private, Ivy League university and the land-grant university for New York state. Cornell’s mission is to discover, preserve and disseminate knowledge, to educate the next generation of global citizens, and to promote a culture of broad inquiry throughout and beyond the Cornell community. Cornell also aims, through public service, to enhance the lives and livelihoods of students, the people of New York and others around the world."
+> "Cornell is a private, Ivy League university and the land-grant university for New York state. Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next generation of global citizens, and to promote a culture of broad inquiry throughout and beyond the Cornell community. Cornell also aims, through public service, to enhance the lives and livelihoods of students, the people of New York and others around the world."
 
 _source: <https://www.cornell.edu/about/mission.cfm>_
 

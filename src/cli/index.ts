@@ -58,7 +58,7 @@ switch (startChoice) {
   case 'text to emoji':
     const defaultPrompt = oneLineTrim`
       Cornell is a private, Ivy League university and the land-grant university for New York state.
-      Cornell’s mission is to discover, preserve and disseminate knowledge, to educate the next
+      Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next
       generation of global citizens, and to promote a culture of broad inquiry throughout and beyond
       the Cornell community. Cornell also aims, through public service, to enhance the lives and
       livelihoods of students, the people of New York and others around the world.
