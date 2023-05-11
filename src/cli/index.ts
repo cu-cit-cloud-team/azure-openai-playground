@@ -1,4 +1,4 @@
-#!/usr/bin/env -S npx ts-node --esm
+#!/usr/bin/env npx tsx
 
 import { exec } from 'node:child_process';
 import { oneLineTrim } from 'common-tags';

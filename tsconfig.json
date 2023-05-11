@@ -15,10 +15,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "ts-node": {
-    "esm": true,
-    "swc": true
-  },
   "include": ["src/**/*.ts"],
   "exclude": [
     "src/**/*.d.ts",
