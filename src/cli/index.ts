@@ -10,6 +10,7 @@ import ora from 'ora';
 import terminalImage from 'terminal-image';
 
 import {
+  PoeticForm,
   execNpmCommand,
   poeticForms,
   showError,
@@ -130,8 +131,8 @@ switch (startChoice) {
 
     break;
   case 'poetry generator':
-    let poeticForm;
-    let poemSubject;
+    let poeticForm: PoeticForm;
+    let poemSubject: string;
     const poetryGeneratorPrompt = await inquirer
       .prompt({
         type: 'list',
@@ -144,39 +145,41 @@ switch (startChoice) {
           (item) => item.type.toLowerCase() === response.answer.toLowerCase(),
         );
         // console.log(poeticForm);
-        poemSubject = await inquirer
+        await inquirer
           .prompt({
             type: 'input',
             name: 'answer',
             message: `What would you like me to write a ${poeticForm.type} about?`,
             default: 'Cornell University',
           })
-          .then((response) => response.answer)
+          .then((response) => {
+            poemSubject = response.answer;
+
+            const poemSpinner = ora(`Generating poem`).start();
+
+            execNpmCommand({
+              command: 'poetry-generator-demo',
+              flags: `--poemType "${poeticForm.type}" --poemSubject "${poemSubject}" --display false`,
+              callback: (stdout: string) => {
+                const poem = stdout.toString().split(':\n\n')[1];
+                console.log(
+                  boxen(poem, {
+                    padding: 1,
+                    margin: 1,
+                    borderStyle: 'double',
+                    borderColor: 'red',
+                    title: `${poeticForm.type} about ${poemSubject}`,
+                  }),
+                );
+              },
+              spinnerRef: poemSpinner,
+            });
+          })
           .catch((err: unknown) => {
             console.log(showError(err));
             console.log(showGoodbye());
           });
       });
-
-    const poemSpinner = ora(`Generating poem`).start();
-
-    execNpmCommand({
-      command: 'poetry-generator-demo',
-      flags: `--poemType "${poeticForm.type}" --poemSubject "${poemSubject}" --display false`,
-      callback: (stdout: string) => {
-        const poem = stdout.toString().split(':\n\n')[1];
-        console.log(
-          boxen(poem, {
-            padding: 1,
-            margin: 1,
-            borderStyle: 'double',
-            borderColor: 'red',
-            title: `${poeticForm.type} about ${poemSubject}`,
-          }),
-        );
-      },
-      spinnerRef: poemSpinner,
-    });
 
     break;
   case 'exit':
