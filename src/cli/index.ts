@@ -149,13 +149,15 @@ switch (startChoice) {
           .prompt({
             type: 'input',
             name: 'answer',
-            message: `What would you like me to write a ${poeticForm.type} about?`,
+            message: `What would you like me to write a ${poeticForm.type.toLowerCase()} about?`,
             default: 'Cornell University',
           })
           .then((response) => {
             poemSubject = response.answer;
 
-            const poemSpinner = ora(`Generating poem`).start();
+            const poemSpinner = ora(
+              `Generating ${poeticForm.type.toLowerCase()}`,
+            ).start();
 
             execNpmCommand({
               command: 'poetry-generator-demo',
@@ -167,10 +169,10 @@ switch (startChoice) {
                     padding: 1,
                     margin: 1,
                     borderStyle: 'double',
-                    borderColor: 'red',
-                    title: `${poeticForm.type} about ${poemSubject}`,
+                    borderColor: 'blue',
                   }),
                 );
+                console.log(poeticForm.rules);
               },
               spinnerRef: poemSpinner,
             });
