@@ -88,6 +88,17 @@
       "import",
       "prettier"
     ],
+    "overrides": [
+      {
+        "files": [
+          "*.ts"
+        ],
+        "rules": {
+          "@typescript-eslint/no-unsafe-call": 1,
+          "@typescript-eslint/no-unsafe-member-access": 1
+        }
+      }
+    ],
     "parserOptions": {
       "project": "./tsconfig.json",
       "ecmaVersion": "latest",
@@ -103,10 +114,7 @@
       "**/.history/*",
       "**/node_modules/*"
     ],
-    "rules": {
-      "@typescript-eslint/no-unsafe-call": "warning",
-      "@typescript-eslint/no-unsafe-member-access": "warning"
-    }
+    "rules": {}
   },
   "prettier": {
     "singleQuote": true,
