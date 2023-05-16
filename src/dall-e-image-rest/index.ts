@@ -70,7 +70,7 @@ const requestHeaders = {
 const apiUrl = `${OPENAI_BASE_PATH}dalle/text-to-image?api-version=${OPENAI_AZURE_DALLE_API_VERSION}`;
 
 // set the prompt for the DALL-E image generation
-const imagePrompt =
+const imagePrompt: string =
   argv.prompt ??
   oneLineTrim`
     Detailed image of a clocktower with a pumpkin on the very top of it's spire
