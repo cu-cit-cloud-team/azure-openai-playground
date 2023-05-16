@@ -4,6 +4,20 @@ import { stripIndents } from 'common-tags';
 import boxen from 'boxen';
 import chalk from 'chalk';
 
+export interface DemoListItem {
+  name: string;
+  value: string;
+  npmCommand?: string;
+}
+
+export interface KeyPressKey {
+  sequence: string;
+  name: string;
+  ctrl: boolean;
+  meta: boolean;
+  shift: boolean;
+}
+
 export const wait = (ms: number): Promise<void> =>
   new Promise((res) => setTimeout(res, ms));
 

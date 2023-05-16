@@ -10,6 +10,8 @@ import ora from 'ora';
 import terminalImage from 'terminal-image';
 
 import {
+  DemoListItem,
+  KeyPressKey,
   PoeticForm,
   execNpmCommand,
   handleError,
@@ -19,15 +21,7 @@ import {
 
 readline.emitKeypressEvents(process.stdin);
 
-interface Key {
-  sequence: string;
-  name: string;
-  ctrl: boolean;
-  meta: boolean;
-  shift: boolean;
-}
-
-process.stdin.on('keypress', (ch, key: Key) => {
+process.stdin.on('keypress', (ch, key: KeyPressKey) => {
   if (key.ctrl && key.name == 'c') {
     process.stdin.pause();
     console.log('\n', showGoodbye());
@@ -45,7 +39,7 @@ const titleStyle = chalk.bold.blue;
 console.log(titleStyle(figlet.textSync(programTitle)));
 
 // define demos available to run
-const demos = [
+const demos: DemoListItem[] = [
   {
     name: 'Text to Emoji',
     value: 'text-to-emoji',
