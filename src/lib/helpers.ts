@@ -1,8 +1,8 @@
-import { oneLineTrim, stripIndents } from 'common-tags';
+import { Ora } from 'ora';
 import { exec } from 'node:child_process';
+import { stripIndents } from 'common-tags';
 import boxen from 'boxen';
 import chalk from 'chalk';
-import { Ora } from 'ora';
 
 export const wait = (ms: number): Promise<void> =>
   new Promise((res) => setTimeout(res, ms));
@@ -57,7 +57,7 @@ export const showGoodbye = () => {
 export interface ExecNpmCommandParams {
   command: string;
   flags: string;
-  callback: Function;
+  callback: () => void | Promise<void>;
   spinnerRef?: Ora;
 }
 
@@ -73,21 +73,18 @@ export const execNpmCommand = ({
   callback,
   spinnerRef = undefined,
 }: ExecNpmCommandParams) => {
-  exec(
-    `npm run ${command} --silent -- ${flags}`,
-    async (error, stdout, stderr) => {
-      if (error) {
-        if (spinnerRef) {
-          spinnerRef.fail();
-        }
-        console.log(showError(error));
-      }
+  exec(`npm run ${command} --silent -- ${flags}`, (error, stdout) => {
+    if (error) {
       if (spinnerRef) {
-        spinnerRef.succeed();
+        spinnerRef.fail();
       }
-      callback(stdout);
-    },
-  );
+      handleError(error);
+    }
+    if (spinnerRef) {
+      spinnerRef.succeed();
+    }
+    await callback(stdout);
+  });
 };
 
 export interface PoeticForm {

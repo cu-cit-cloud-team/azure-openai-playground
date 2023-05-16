@@ -136,7 +136,7 @@ switch (startChoice.toLowerCase()) {
       'Generating image (this can take a little while)',
     ).start();
 
-    const imageGenCallback = async (stdout: string) => {
+    const imageGenCallback = async (stdout: string): Promise<void> => {
       console.log(stdout);
       const imagePath = stdout.toString().split("'")[1].replace("'", '');
       const imagePreview = await terminalImage.file(imagePath, {
@@ -166,9 +166,11 @@ switch (startChoice.toLowerCase()) {
         message: 'What poetic form would you like to generate?',
         choices: poeticForms.map((item) => item.type).sort(),
       })
-      .then(async (response) => {
+      .then(async (response: Answers) => {
         [poeticForm] = poeticForms.filter(
-          (item) => item.type.toLowerCase() === response.answer.toLowerCase(),
+          (item) =>
+            item.type.toLowerCase() ===
+            (response.answer as string).toLowerCase(),
         );
         // console.log(poeticForm);
         await inquirer
