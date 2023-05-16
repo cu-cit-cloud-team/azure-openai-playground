@@ -1,6 +1,7 @@
 #!/usr/bin/env npx tsx
 
 import { exec } from 'node:child_process';
+import readline from 'node:readline';
 import { oneLineTrim } from 'common-tags';
 import boxen from 'boxen';
 import chalk from 'chalk';
@@ -17,6 +18,18 @@ import {
   showGoodbye,
   showPrompt,
 } from '../lib/helpers.js';
+
+readline.emitKeypressEvents(process.stdin);
+
+process.stdin.on('keypress', (ch, key) => {
+  if (key && key.ctrl && key.name == 'c') {
+    process.stdin.pause();
+    console.log('\n', showGoodbye());
+    process.exit(0);
+  }
+});
+
+process.stdin.setRawMode(true);
 
 // set title text and style
 const programTitle = 'Azure OpenAI Playground';
