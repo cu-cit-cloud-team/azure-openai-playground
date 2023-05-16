@@ -98,7 +98,7 @@ const gptExample = await openAIClient
   });
 
 // assume output is good and parse it
-const results = gptExample.data.choices[0]!.text!.trim();
+const results = gptExample.data.choices[0].text.trim();
 console.log(JSON.parse(results));
 
 if (NODE_ENV === 'development') {
