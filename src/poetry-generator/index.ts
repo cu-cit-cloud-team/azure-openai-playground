@@ -1,11 +1,9 @@
-import { oneLineTrim, stripIndents } from 'common-tags';
-import boxen from 'boxen';
+import { oneLineTrim } from 'common-tags';
 import dotenv from 'dotenv';
 import got from 'got';
 import yargs from 'yargs';
 
 import { PoeticForm, poeticForms } from '../lib/helpers.js';
-import { type } from 'node:os';
 
 export interface CompletionResponse {
   id: string;
@@ -85,7 +83,7 @@ const poemType: PoeticForm = poeticForms.filter(
   (poeticForm) => poeticForm.type.toLowerCase() === requestedForm.toLowerCase(),
 )[0];
 
-const poemSubject = argv.poemSubject ?? 'Cornell University';
+const poemSubject: string = argv.poemSubject ?? 'Cornell University';
 
 const prompt = `You are a poetry generator with the following parameters:
 
