@@ -1,12 +1,11 @@
 #!/usr/bin/env npx tsx
 
-import { exec } from 'node:child_process';
 import readline from 'node:readline';
 import { oneLineTrim } from 'common-tags';
 import boxen from 'boxen';
 import chalk from 'chalk';
 import figlet from 'figlet';
-import inquirer from 'inquirer';
+import inquirer, { Answers } from 'inquirer';
 import ora from 'ora';
 import terminalImage from 'terminal-image';
 
@@ -16,13 +15,20 @@ import {
   poeticForms,
   showError,
   showGoodbye,
-  showPrompt,
 } from '../lib/helpers.js';
 
 readline.emitKeypressEvents(process.stdin);
 
-process.stdin.on('keypress', (ch, key) => {
-  if (key && key.ctrl && key.name == 'c') {
+interface Key {
+  sequence: string;
+  name: string;
+  ctrl: boolean;
+  meta: boolean;
+  shift: boolean;
+}
+
+process.stdin.on('keypress', (ch, key: Key) => {
+  if (key.ctrl && key.name == 'c') {
     process.stdin.pause();
     console.log('\n', showGoodbye());
     process.exit(0);
@@ -42,34 +48,41 @@ console.log(titleStyle(figlet.textSync(programTitle)));
 const demos = [
   {
     name: 'Text to Emoji',
+    value: 'text-to-emoji',
     npmCommand: 'text-completion-rest-demo',
   },
   {
     name: 'Image Generation',
+    value: 'image-generation',
     npmCommand: 'image-generation-demo',
   },
   {
     name: 'Poetry Generator',
+    value: 'poetry-generator',
     npmCommand: 'poetry-generation-demo',
   },
   {
     name: 'Exit',
+    value: 'exit',
   },
 ];
 
 // start program by prompting user to select a demo
-const startChoice = await inquirer
+const startChoice: string = await inquirer
   .prompt({
     type: 'list',
     name: 'answer',
     message: 'What demo would you like to run?',
-    choices: demos.map((demo) => demo.name),
+    choices: demos.map((demo) => ({
+      name: demo.name,
+      value: demo.value,
+    })),
   })
-  .then((response) => response.answer.toLowerCase())
-  .catch((err: unknown) => 'exit');
+  .then((response: Answers) => response.answer as string)
+  .catch(() => 'exit');
 
-switch (startChoice) {
-  case 'text to emoji':
+switch (startChoice.toLowerCase()) {
+  case 'text-to-emoji': {
     const defaultPrompt = oneLineTrim`
       Cornell is a private, Ivy League university and the land-grant university for New York state.
       Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next
@@ -78,7 +91,7 @@ switch (startChoice) {
       livelihoods of students, the people of New York and others around the world.
     `;
 
-    const emojiGenerationPrompt = await inquirer
+    const emojiGenerationPrompt: string = await inquirer
       .prompt({
         type: 'input',
         name: 'answer',
@@ -86,10 +99,11 @@ switch (startChoice) {
           'Submit the text that you would like to analyze and get emojis for',
         default: defaultPrompt,
       })
-      .then((response) => response.answer)
+      .then((response: Answers) => response.answer as string)
       .catch((err: unknown) => {
         console.log(showError(err));
         console.log(showGoodbye());
+        process.exit(1);
       });
 
     // console.log(showPrompt(emojiGenerationPrompt));
@@ -105,8 +119,9 @@ switch (startChoice) {
     });
 
     break;
-  case 'image generation':
-    const imageGenerationPrompt = await inquirer
+  }
+  case 'image-generation': {
+    const imageGenerationPrompt: string = await inquirer
       .prompt({
         type: 'input',
         name: 'answer',
@@ -114,7 +129,7 @@ switch (startChoice) {
         default:
           'Detailed image of a clocktower with a pumpkin on the very top of its spire',
       })
-      .then((response) => response.answer)
+      .then((response: Answers) => response.answer as string)
       .catch((err: unknown) => {
         console.log(showError(err));
         console.log(showGoodbye());
@@ -143,10 +158,11 @@ switch (startChoice) {
     });
 
     break;
-  case 'poetry generator':
+  }
+  case 'poetry-generator': {
     let poeticForm: PoeticForm;
     let poemSubject: string;
-    const poetryGeneratorPrompt = await inquirer
+    await inquirer
       .prompt({
         type: 'list',
         name: 'answer',
@@ -165,8 +181,8 @@ switch (startChoice) {
             message: `What would you like me to write a ${poeticForm.type.toLowerCase()} about?`,
             default: 'Cornell University',
           })
-          .then((response) => {
-            poemSubject = response.answer;
+          .then((response: Answers) => {
+            poemSubject = response.answer as string;
 
             const poemSpinner = ora(
               `Generating ${poeticForm.type.toLowerCase()}`,
@@ -197,8 +213,10 @@ switch (startChoice) {
       });
 
     break;
-  case 'exit':
+  }
+  case 'exit': {
     console.log(showGoodbye());
 
     break;
+  }
 }
