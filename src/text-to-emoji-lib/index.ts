@@ -91,6 +91,7 @@ const gptExample = await openAIClient
     max_tokens: 1000,
     model: OPENAI_AZURE_MODEL_DEPLOYMENT,
   })
+  .then((response) => response.data.choices[0].text)
   .catch((error) => {
     // output error and stop processing
     console.error(error);
@@ -98,7 +99,7 @@ const gptExample = await openAIClient
   });
 
 // assume output is good and parse it
-const results = gptExample.data.choices[0].text.trim();
+const results = gptExample!.trim();
 console.log(JSON.parse(results));
 
 if (NODE_ENV === 'development') {

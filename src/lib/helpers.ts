@@ -71,7 +71,7 @@ export const showGoodbye = () => {
 export interface ExecNpmCommandParams {
   command: string;
   flags: string;
-  callback: () => void | Promise<void>;
+  callback: (...args: any) => any;
   spinnerRef?: Ora;
 }
 
@@ -97,7 +97,7 @@ export const execNpmCommand = ({
     if (spinnerRef) {
       spinnerRef.succeed();
     }
-    await callback(stdout);
+    callback(stdout);
   });
 };
 

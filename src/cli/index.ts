@@ -1,4 +1,4 @@
-#!/usr/bin/env npx tsx
+#!/usr/bin/env -S npx tsx
 
 import readline from 'node:readline';
 import { oneLineTrim } from 'common-tags';
@@ -85,7 +85,7 @@ switch (startChoice.toLowerCase()) {
       livelihoods of students, the people of New York and others around the world.
     `;
 
-    const emojiGenerationPrompt: string = await inquirer
+    const emojiGenerationPrompt = await inquirer
       .prompt({
         type: 'input',
         name: 'answer',
@@ -103,7 +103,7 @@ switch (startChoice.toLowerCase()) {
     const emojiSpinner = ora('Generating JSON').start();
     execNpmCommand({
       command: 'text-completion-rest-demo',
-      flags: `--prompt "${emojiGenerationPrompt}"`,
+      flags: `--prompt "${emojiGenerationPrompt as string}"`,
       callback: (stdout: string) => {
         console.log(JSON.parse(stdout));
       },
@@ -113,7 +113,7 @@ switch (startChoice.toLowerCase()) {
     break;
   }
   case 'image-generation': {
-    const imageGenerationPrompt: string = await inquirer
+    const imageGenerationPrompt = await inquirer
       .prompt({
         type: 'input',
         name: 'answer',
@@ -143,7 +143,7 @@ switch (startChoice.toLowerCase()) {
 
     execNpmCommand({
       command: 'image-generation-demo',
-      flags: `--prompt "${imageGenerationPrompt}" --display false`,
+      flags: `--prompt "${imageGenerationPrompt as string}" --display false`,
       callback: imageGenCallback,
       spinnerRef: imageSpinner,
     });

@@ -83,7 +83,7 @@ const poemType: PoeticForm = poeticForms.filter(
   (poeticForm) => poeticForm.type.toLowerCase() === requestedForm.toLowerCase(),
 )[0];
 
-const poemSubject: string = argv.poemSubject ?? 'Cornell University';
+const poemSubject = argv.poemSubject ?? 'Cornell University';
 
 const prompt = `You are a poetry generator with the following parameters:
 
@@ -92,9 +92,13 @@ const prompt = `You are a poetry generator with the following parameters:
   - Generate a ${poemType.type}.
   - The rules for a ${poemType.type} are:
     - ${poemType.rules}
-  - Here's an example ${poemType.type} that follows the rules for a ${poemType.type}:
+  - Here's an example ${poemType.type} that follows the rules for a ${
+  poemType.type
+}:
     ${poemType.example}
-  - Generate an original ${poemType.type} poem about ${poemSubject} that follows the rules. Don't use the words in the example.
+  - Generate an original ${poemType.type} poem about ${
+  poemSubject as string
+} that follows the rules. Don't use the words in the example.
 `;
 
 const completionResponseBody = await got({
@@ -122,7 +126,9 @@ const completionResponse = JSON.parse(
 ) as CompletionResponse;
 const completion = completionResponse.choices[0].text.trim();
 
-console.log(`${poemType.type} about ${poemSubject}:\n\n${completion}`);
+console.log(
+  `${poemType.type} about ${poemSubject as string}:\n\n${completion}`,
+);
 
 if (NODE_ENV === 'development') {
   // output execution time in milliseconds
