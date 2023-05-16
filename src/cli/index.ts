@@ -12,8 +12,8 @@ import terminalImage from 'terminal-image';
 import {
   PoeticForm,
   execNpmCommand,
+  handleError,
   poeticForms,
-  showError,
   showGoodbye,
 } from '../lib/helpers.js';
 
@@ -101,9 +101,7 @@ switch (startChoice.toLowerCase()) {
       })
       .then((response: Answers) => response.answer as string)
       .catch((err: unknown) => {
-        console.log(showError(err));
-        console.log(showGoodbye());
-        process.exit(1);
+        handleError(err);
       });
 
     // console.log(showPrompt(emojiGenerationPrompt));
@@ -131,8 +129,7 @@ switch (startChoice.toLowerCase()) {
       })
       .then((response: Answers) => response.answer as string)
       .catch((err: unknown) => {
-        console.log(showError(err));
-        console.log(showGoodbye());
+        handleError(err);
       });
 
     const imageSpinner = ora(
@@ -207,8 +204,7 @@ switch (startChoice.toLowerCase()) {
             });
           })
           .catch((err: unknown) => {
-            console.log(showError(err));
-            console.log(showGoodbye());
+            handleError(err);
           });
       });
 

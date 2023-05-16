@@ -61,6 +61,12 @@ export interface ExecNpmCommandParams {
   spinnerRef?: Ora;
 }
 
+export const handleError = (error: unknown): void => {
+  console.log(showError(error));
+  console.log(showGoodbye());
+  process.exit(1);
+};
+
 export const execNpmCommand = ({
   command,
   flags,
