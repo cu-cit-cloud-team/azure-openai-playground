@@ -9,15 +9,9 @@ import inquirer, { Answers } from 'inquirer';
 import ora from 'ora';
 import terminalImage from 'terminal-image';
 
-import {
-  DemoListItem,
-  KeyPressKey,
-  PoeticForm,
-  execNpmCommand,
-  handleError,
-  poeticForms,
-  showGoodbye,
-} from '../lib/helpers.js';
+import { DemoListItem, KeyPressKey, execNpmCommand } from '../lib/cli.js';
+import { handleError, showGoodbye } from '../lib/helpers.js';
+import { PoeticForm, poeticForms } from '../lib/poetry.js';
 
 readline.emitKeypressEvents(process.stdin);
 
