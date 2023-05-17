@@ -72,10 +72,10 @@ const startChoice: string = await inquirer
       value: demo.value,
     })),
   })
-  .then((response: Answers) => response.answer as string)
+  .then((response: Answers) => (response.answer as string).toLowerCase())
   .catch(() => 'exit');
 
-switch (startChoice.toLowerCase()) {
+switch (startChoice) {
   case 'text-to-emoji': {
     const defaultPrompt = oneLineTrim`
       Cornell is a private, Ivy League university and the land-grant university for New York state.
