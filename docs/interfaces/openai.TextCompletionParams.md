@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[openai.ts:24](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L24)
+[openai.ts:24](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L24)
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 #### Defined in
 
-[openai.ts:25](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L25)
+[openai.ts:25](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L25)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[openai.ts:23](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L23)
+[openai.ts:23](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L23)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 #### Defined in
 
-[openai.ts:27](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L27)
+[openai.ts:27](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L27)
 
 ___
 
@@ -62,4 +62,4 @@ ___
 
 #### Defined in
 
-[openai.ts:26](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L26)
+[openai.ts:26](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L26)

@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[poetry.ts:11](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/poetry.ts#L11)
+[poetry.ts:11](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/poetry.ts#L11)

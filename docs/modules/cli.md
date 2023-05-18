@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[cli.ts:29](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/cli.ts#L29)
+[cli.ts:29](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/cli.ts#L29)

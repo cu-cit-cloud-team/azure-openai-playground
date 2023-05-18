@@ -21,7 +21,7 @@
 
 #### Defined in
 
-[openai.ts:55](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L55)
+[openai.ts:55](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L55)
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 #### Defined in
 
-[openai.ts:56](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L56)
+[openai.ts:56](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L56)
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 #### Defined in
 
-[openai.ts:57](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L57)
+[openai.ts:57](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L57)
 
 ___
 
@@ -51,4 +51,4 @@ ___
 
 #### Defined in
 
-[openai.ts:58](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/e4891f4/src/lib/openai.ts#L58)
+[openai.ts:58](https://github.com/CU-CommunityApps/ct-azure-openai-playground/blob/fc40831/src/lib/openai.ts#L58)
