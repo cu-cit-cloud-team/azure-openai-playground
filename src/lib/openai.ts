@@ -138,7 +138,7 @@ export const submitImageGenerationRequest = async ({
   format = 'b64_json',
   numImages: n = 1,
   requestHeaders = defaultHeaders(),
-}: SubmitImageGenerationRequestParams): string => {
+}: SubmitImageGenerationRequestParams): Promise<string> => {
   const createImageResponse = await got({
     method: 'POST',
     url,
@@ -165,7 +165,7 @@ export const submitImageGenerationRequest = async ({
 export const getImageGenerationResult = async ({
   imageOperationUrl: url,
   requestHeaders = defaultHeaders(),
-}: GetImageGenerationResultParams): string => {
+}: GetImageGenerationResultParams): Promise<string> => {
   // set a couple variables used in the loop
   let retryNumber = 0;
   let imageUrl = undefined;
@@ -201,7 +201,7 @@ export const saveImageGenerationResult = async ({
   imageName = uuid(),
   saveToPath = './src/dall-e-image-rest/generated-images/',
   requestHeaders = defaultHeaders(),
-}: SaveImageGenerationResultParams): string => {
+}: SaveImageGenerationResultParams): Promise<string> => {
   // set full save path as var for reuse
   const fullImagePath = `${saveToPath}${imageName}.png`;
 
@@ -230,7 +230,7 @@ export const doTextCompletion = async ({
   requestHeaders = defaultHeaders(),
   maxTokens: max_tokens = 1000,
   temperature = 0.2,
-}: TextCompletionParams): string => {
+}: TextCompletionParams): Promise<string> => {
   const completionResponseBody = await got({
     method: 'POST',
     url,
@@ -258,4 +258,26 @@ export const doTextCompletion = async ({
   const completion = completionResponse.choices[0].text.trim();
 
   return completion;
+};
+
+export const generateAndSaveImage = async (prompt: string): Promise<string> => {
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const imageOperationUrl = await submitImageGenerationRequest({
+    prompt,
+  });
+  // console.log(imageOperationUrl);
+
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const imageUrl = await getImageGenerationResult({
+    imageOperationUrl,
+  });
+  // console.log(imageUrl);
+
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const savedImagePath = await saveImageGenerationResult({
+    imageUrl,
+  });
+  // console.log(savedImagePath);
+
+  return savedImagePath;
 };
