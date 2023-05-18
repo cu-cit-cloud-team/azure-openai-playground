@@ -4,11 +4,7 @@ import terminalImage from 'terminal-image';
 import yargs from 'yargs';
 
 import { Arguments } from '../lib/helpers.js';
-import {
-  getImageGenerationResult,
-  saveImageGenerationResult,
-  submitImageGenerationRequest,
-} from '../lib/openai.js';
+import { generateAndSaveImage } from '../lib/openai.js';
 
 const argv = yargs(process.argv.slice(2)).argv as unknown as Arguments;
 
@@ -34,22 +30,7 @@ const suppressImageDisplay = argv.display === 'false';
 // set whether or not to display the prompt in the terminal output
 const suppressPrompt = suppressImageDisplay;
 
-// eslint-disable-next-line @typescript-eslint/await-thenable
-const imageOperationUrl = await submitImageGenerationRequest({
-  prompt,
-});
-// console.log(imageOperationUrl);
-
-// eslint-disable-next-line @typescript-eslint/await-thenable
-const imageUrl = await getImageGenerationResult({
-  imageOperationUrl,
-});
-// console.log(imageUrl);
-
-// eslint-disable-next-line @typescript-eslint/await-thenable
-const savedImagePath = await saveImageGenerationResult({
-  imageUrl,
-});
+const savedImagePath = await generateAndSaveImage(prompt as string);
 
 // output original prompt, image location, and image preview
 if (!suppressPrompt) {
