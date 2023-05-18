@@ -79,9 +79,8 @@ export interface SaveImageGenerationResultParams {
 // helper methods
 
 /**
- * defaultHeaders
+ * @function
  * @description returns default headers for reuse in Azure OpenAI API requests
- * @example const headers = defaultHeaders();
  * @param {string} [userAgent='cloud-team-automation']  The user agent to use in the headers.
  * @returns {Headers} An object containing the headers
  */
@@ -105,9 +104,8 @@ export const defaultHeaders = (
 };
 
 /**
- * imageGenerationUrl
+ * @function
  * @description This function returns the URL for generating images using Azure OpenAI's DALL-E API.
- * @example const url = imageGenerationUrl();
  * @returns {string} The URL for generating images.
  */
 export const imageGenerationUrl = (): string => {
@@ -126,9 +124,8 @@ export const imageGenerationUrl = (): string => {
 };
 
 /**
- * textCompletionUrl
+ * @function
  * @description This function returns the URL for text completion using Azure OpenAI's API.
- * @example const url = textCompletionUrl();
  * @returns {string} The URL for text completion.
  */
 export const textCompletionUrl = (): string => {
@@ -152,9 +149,9 @@ export const textCompletionUrl = (): string => {
 };
 
 /**
- * submitImageGenerationRequest
+ * @async
+ * @function
  * @description This function submits a request to generate an image using OpenAI's DALL-E API.
- * @example const image = await submitImageGenerationRequest({ prompt: 'a prompt' });
  * @param {SubmitImageGenerationRequestParams} params - object with parameters for the request.
  * @param {string} params.prompt - The prompt for the image generation.
  * @param {string} [params.apiUrl] - The URL for the API endpoint.
@@ -196,9 +193,9 @@ export const submitImageGenerationRequest = async ({
 };
 
 /**
- * getImageGenerationResult
+ * @async
+ * @function
  * @description This function gets the result of an image generation request using OpenAI's DALL-E API.
- * @example const image = await getImageGenerationResult({ operationUrl: 'an operation url' });
  * @param {GetImageGenerationResultParams} params - object with parameters for the request.
  * @param {string} params.operationUrl - The URL for the operation.
  * @param {Headers} [params.requestHeaders] - The headers for the request.
@@ -239,7 +236,8 @@ export const getImageGenerationResult = async ({
 };
 
 /**
- * saveImageGenerationResult
+ * @async
+ * @function
  * @description This function saves the generated image to a file.
  * @param {SaveImageGenerationResultParams} params - The parameters for saving the image.
  * @param {string} params.imageUrl - The URL of the generated image.
@@ -277,12 +275,13 @@ export const saveImageGenerationResult = async ({
 };
 
 /**
- * doTextCompletion
+ * @async
+ * @function
  * @description This function provides text completion suggestions for the given prompt using OpenAI's API.
  * @param {TextCompletionParams} params - The parameters for the text completion request.
  * @param {string} params.prompt - The prompt for the text completion request.
  * @param {string} [params.apiUrl=textCompletionUrl()] - The URL for the text completion API.
- * @param {Record<string, string>} [params.requestHeaders=defaultHeaders()] - The headers for the text completion request.
+ * @param {Headers} [params.requestHeaders=defaultHeaders()] - The headers for the text completion request.
  * @param {number} [params.maxTokens=1000] - The maximum number of tokens to generate for the text completion.
  * @param {number} [params.temperature=0.2] - The sampling temperature to use for the text completion.
  * @returns {Promise<string>} A promise that resolves with the generated text completion.
@@ -324,9 +323,9 @@ export const doTextCompletion = async ({
 };
 
 /**
- * generateAndSaveImage
+ * @async
+ * @function
  * @description This function submits a request to generate an image using OpenAI's DALL-E API and saves the result to a file.
- * @example const image = await generateAndSaveImage('a prompt');
  * @param {string} prompt - The prompt for the image generation.
  * @returns {Promise<string>} A promise that resolves with the path to the saved image.
  */
