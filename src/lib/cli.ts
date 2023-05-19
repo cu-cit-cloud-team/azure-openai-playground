@@ -26,6 +26,17 @@ export interface ExecNpmCommandParams {
 }
 
 // helper methods
+
+/**
+ * @function
+ * @description Executes an npm command and optionally stops an Ora spinner
+ * @param {ExecNpmCommandParams} params
+ * @param {string} params.command - npm command to execute
+ * @param {string} params.flags - flags to pass to the npm command
+ * @param {Function} params.callback - callback function to execute after the npm command is executed
+ * @param {Ora} params.spinnerRef - Ora spinner reference to stop
+ * @returns {void}
+ */
 export const execNpmCommand = ({
   command,
   flags,

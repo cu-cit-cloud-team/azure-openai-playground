@@ -13,12 +13,31 @@ export interface Arguments {
 }
 
 // helper methods
+
+/**
+ * @function
+ * @description Pauses execution by waiting for a specified number of milliseconds
+ * @param {number} ms - number of milliseconds to wait
+ * @returns {Promise<void>}
+ */
 export const wait = (ms: number): Promise<void> =>
   new Promise((res) => setTimeout(res, ms));
 
+/**
+ * @function
+ * @description Generates a random number between 0 and a specified number
+ * @param {number} maxNum - maximum number to generate
+ * @returns {number}
+ */
 export const randomNum = (maxNum: number): number =>
   Math.floor(Math.random() * maxNum);
 
+/**
+ * @function
+ * @description Takes a prompt and returns it in a box for display in the terminal
+ * @param {string} prompt - prompt to display
+ * @returns {void}
+ */
 export const showPrompt = (prompt: string) =>
   boxen(chalk.italic.cyan(prompt), {
     borderColor: 'cyan',
@@ -27,6 +46,12 @@ export const showPrompt = (prompt: string) =>
     margin: 1,
   });
 
+/**
+ * @function
+ * @description Takes an error and returns it in a box for display in the terminal
+ * @param {Error} error - error to display
+ * @returns {void}
+ */
 export const showError = (error: unknown) =>
   boxen(chalk.bold.redBright(error), {
     borderColor: 'red',
@@ -35,6 +60,11 @@ export const showError = (error: unknown) =>
     margin: 1,
   });
 
+/**
+ * @function
+ * @description Returns a random goodbye string
+ * @returns {string}
+ */
 export const showGoodbye = () => {
   const goodbyeStrings = [
     'Bye',
@@ -67,6 +97,11 @@ export const showGoodbye = () => {
   );
 };
 
+/**
+ * @function
+ * @description Takes an error, displays it in a box, shows a goodbye message, and exits the process
+ * @param {Error} error - error to display
+ */
 export const handleError = (error: unknown): void => {
   console.log(showError(error));
   console.log(showGoodbye());
