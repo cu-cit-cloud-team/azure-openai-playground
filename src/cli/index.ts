@@ -12,6 +12,7 @@ import terminalImage from 'terminal-image';
 import { DemoListItem, KeyPressKey, execNpmCommand } from '../lib/cli.js';
 import { handleError, showGoodbye } from '../lib/helpers.js';
 import { PoeticForm, poeticForms } from '../lib/poetry.js';
+import { Language, languages } from '../lib/translator.js';
 
 readline.emitKeypressEvents(process.stdin);
 
@@ -48,6 +49,11 @@ const demos: DemoListItem[] = [
     name: 'Poetry Generator',
     value: 'poetry-generator',
     npmCommand: 'poetry-generation-demo',
+  },
+  {
+    name: 'English Translator',
+    value: 'english-translator',
+    npmCommand: 'english-translator-demo',
   },
   {
     name: 'Exit',
@@ -191,6 +197,55 @@ switch (startChoice) {
                 console.log(poeticForm.rules);
               },
               spinnerRef: poemSpinner,
+            });
+          })
+          .catch((err: unknown) => {
+            handleError(err);
+          });
+      });
+
+    break;
+  }
+  case 'english-translator': {
+    let language: Language;
+    let textToTranslate: string;
+
+    await inquirer
+      .prompt({
+        type: 'list',
+        name: 'answer',
+        message: 'What language would you like me to translate your text to?',
+        choices: languages.map((item) => item.name).sort(),
+      })
+      .then(async (response: Answers) => {
+        [language] = languages.filter(
+          (item) =>
+            item.name.toLowerCase() ===
+            (response.answer as string).toLowerCase(),
+        );
+        // console.log(language);
+        await inquirer
+          .prompt({
+            type: 'input',
+            name: 'answer',
+            message: `Enter the English text you would like translated to ${language.name}:`,
+            default: 'Where can I find some good tacos to eat?',
+          })
+          .then((response: Answers) => {
+            textToTranslate = response.answer as string;
+
+            const translationSpinner = ora(
+              `Generating ${language.name} translation`,
+            ).start();
+
+            execNpmCommand({
+              command: 'english-translator-demo',
+              flags: `--language "${language.name}" --text "${textToTranslate}"`,
+              callback: (stdout: string) => {
+                const results = stdout.toString().split(':\n\n');
+                console.log('\n', results[1].trim().split('\n\n')[1]);
+              },
+              spinnerRef: translationSpinner,
             });
           })
           .catch((err: unknown) => {
