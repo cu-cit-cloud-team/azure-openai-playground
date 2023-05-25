@@ -330,19 +330,16 @@ export const doTextCompletion = async ({
  * @returns {Promise<string>} A promise that resolves with the path to the saved image.
  */
 export const generateAndSaveImage = async (prompt: string): Promise<string> => {
-  // eslint-disable-next-line @typescript-eslint/await-thenable
   const imageOperationUrl = await submitImageGenerationRequest({
     prompt,
   });
   // console.log(imageOperationUrl);
 
-  // eslint-disable-next-line @typescript-eslint/await-thenable
   const imageUrl = await getImageGenerationResult({
     imageOperationUrl,
   });
   // console.log(imageUrl);
 
-  // eslint-disable-next-line @typescript-eslint/await-thenable
   const savedImagePath = await saveImageGenerationResult({
     imageUrl,
   });

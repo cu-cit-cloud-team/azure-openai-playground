@@ -42,7 +42,6 @@ const prompt = `You are a poetry generator with the following parameters:
 } that follows the provided rules. Don't use the words in the example.
 `;
 
-// eslint-disable-next-line @typescript-eslint/await-thenable
 const completion = await doTextCompletion({ prompt, temperature: 0 });
 
 console.log(

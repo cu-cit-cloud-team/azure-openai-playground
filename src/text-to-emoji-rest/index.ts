@@ -47,7 +47,6 @@ const prompt = oneLineTrim`
   Text to analyze: ${textToAnalyze}
 `;
 
-// eslint-disable-next-line @typescript-eslint/await-thenable
 const completion = await doTextCompletion({ prompt });
 
 console.log(completion);
