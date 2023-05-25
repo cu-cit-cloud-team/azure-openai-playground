@@ -4,7 +4,7 @@ import yargs from 'yargs';
 import { Arguments, randomNum } from '../lib/helpers.js';
 import { doTextCompletion } from '../lib/openai.js';
 import { Language, languages } from '../lib/translator.js';
-import { oneLineTrim } from 'common-tags';
+import { stripIndents } from 'common-tags';
 
 const argv = yargs(process.argv.slice(2)).argv as unknown as Arguments;
 
@@ -29,13 +29,16 @@ const language: Language = languages.filter(
 
 const textToTranslate = argv.text ?? 'Where can I find some good tacos?';
 
-const prompt = oneLineTrim`
-  You are an English to ${requestedLanguage} language translator. Only
-  return the ${requestedLanguage} translation. The English text to
-  translate is:\n\n${textToTranslate}
+const prompt = stripIndents`
+  You are an English language translator that will accept English text
+  and translate it to the requested language. Translate the following
+  text into ${requestedLanguage}:
+
+  ---
+  ${textToTranslate}
+  ---
 `;
 
-// eslint-disable-next-line @typescript-eslint/await-thenable
 const completion = await doTextCompletion({ prompt, temperature: 0 });
 
 console.log(
