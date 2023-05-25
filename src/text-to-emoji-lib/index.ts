@@ -88,7 +88,7 @@ const prompt = stripIndents`
 `;
 
 // make request to generate the completion
-const gptExample = await openAIClient
+const gptExample: string = await openAIClient
   .createCompletion({
     prompt,
     temperature: 0.2,
@@ -103,7 +103,7 @@ const gptExample = await openAIClient
   });
 
 // assume output is good and parse it
-const results = gptExample!.trim();
+const results = gptExample.trim();
 console.log(JSON.parse(results));
 
 if (NODE_ENV === 'development') {
