@@ -119,7 +119,7 @@ switch (startChoice) {
         name: 'answer',
         message: 'Describe the image you would like to generate',
         default:
-          'Detailed image of a clocktower with a pumpkin on the very top of its spire',
+          'Detailed image of a clock tower with a pumpkin on the very top of its spire',
       })
       .then((response: Answers) => response.answer as string)
       .catch((err: unknown) => {

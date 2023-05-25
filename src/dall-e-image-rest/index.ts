@@ -21,7 +21,7 @@ const debugStartTime = hrtime();
 const prompt =
   argv.prompt ??
   oneLineTrim`
-    Detailed image of a clocktower with a pumpkin on the very top of it's spire
+    Detailed image of a clock tower with a pumpkin on the very top of it's spire
   `;
 
 // set whether or not to display the image in the terminal

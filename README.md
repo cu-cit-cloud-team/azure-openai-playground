@@ -177,7 +177,7 @@ Once the image is ready, it downloads it and saves it locally as a PNG file. The
 the path to the generated image, and a preview of the image in the terminal.
 
 Input text:
-> "Detailed image of a clocktower with a pumpkin on the very top of it's spire"
+> "Detailed image of a clock tower with a pumpkin on the very top of it's spire"
 
 Example generated images:
 
