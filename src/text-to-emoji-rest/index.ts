@@ -1,4 +1,4 @@
-import { oneLineTrim } from 'common-tags';
+import { oneLineTrim, stripIndents } from 'common-tags';
 import dotenv from 'dotenv';
 import yargs from 'yargs';
 
@@ -36,15 +36,19 @@ const resultsShape = [
 ];
 
 // prompt that will be sent to (Azure) OpenAI for a completion
-const prompt = oneLineTrim`
-  Analyze the supplied text and return a JSON array of objects containing unique unicode v15
-  emojis that best represent it. Each object in the array should contain the emoji, the
-  markdown short code for the emoji, and the reasoning for choosing it. Don't return any
-  duplicate emojis. JSON response should have a shape of: ${JSON.stringify(
+const prompt = stripIndents`
+  Analyze the supplied text and return a JSON array of objects containing unique unicode
+  v15 emojis that best represent it. Each object in the array should contain the emoji,
+  the markdown short code for the emoji, and the reasoning for choosing it. Do NOT return
+  any duplicate emojis. JSON response should have a shape of: ${JSON.stringify(
     resultsShape,
   )}.
 
-  Text to analyze: ${textToAnalyze}
+  Analyze this text:
+
+  ---
+  ${textToAnalyze}
+  ---
 `;
 
 const completion = await doTextCompletion({ prompt });
