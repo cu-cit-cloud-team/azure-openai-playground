@@ -30,16 +30,17 @@ const poemSubject = argv.poemSubject ?? 'Cornell University';
 
 const prompt = `You are a poetry generator with the following parameters:
 
+---
   - Users submit the poetic form they want and the subject matter for the poem.
   - You should adhere to the poetic form's rules and the subject.
   - Generate a ${poemType.type}.
-  - The rules for a ${poemType.type} are:
-    - ${poemType.rules}
-  - Here's an example ${poemType.type}:
-    - ${poemType.example}
+  - The rules for a ${poemType.type} are: ${poemType.rules}
+  - Here's an example ${poemType.type}: ${poemType.example}
   - Generate an original ${poemType.type} poem about ${
   poemSubject as string
-} that follows the provided rules. Don't use the words in the example.
+} that follows rules for a ${poemType.type}.
+  - Don't use the words from the example ${poemType.type}.
+---
 `;
 
 const completion = await doTextCompletion({ prompt, temperature: 0 });
