@@ -159,7 +159,7 @@ export const textCompletionUrl = (): string => {
  * @param {string} [params.format] - The format of the generated image.
  * @param {number} [params.numImages] - The number of images to generate.
  * @param {Headers} [params.requestHeaders] - The headers for the request.
- * @returns {Promise<string>} A promise that resolves with the generated image.
+ * @returns {Promise<string>} A promise that resolves with the image generation operation URL.
  */
 export const submitImageGenerationRequest = async ({
   prompt: caption,
