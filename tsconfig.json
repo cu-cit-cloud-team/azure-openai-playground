@@ -4,7 +4,7 @@
     "experimentalDecorators": true,
     "strictNullChecks": true,
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "strictFunctionTypes": true,
     "rootDir": "src",
