@@ -95,7 +95,7 @@ const gptExample: string = await openAIClient
     max_tokens: 1000,
     model: OPENAI_AZURE_MODEL_DEPLOYMENT,
   })
-  .then((response) => response.data.choices[0].text)
+  .then((response) => response.data.choices[0].text as string)
   .catch((error) => {
     // output error and stop processing
     console.error(error);
