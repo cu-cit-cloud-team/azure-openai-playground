@@ -27,7 +27,7 @@ process.stdin.on('keypress', (ch, key: KeyPressKey) => {
 process.stdin.setRawMode(true);
 
 // set title text and style
-const programTitle = 'Azure OpenAI Playground';
+const programTitle = 'Azure OpenAI Demos';
 const titleStyle = chalk.bold.blue;
 
 // output title
