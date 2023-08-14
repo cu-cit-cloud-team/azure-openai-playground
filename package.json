@@ -15,6 +15,7 @@
     "image-generation-demo": "npm run prod -- ./src/dall-e-image-rest/index.ts",
     "poetry-generator-demo": "npm run prod -- ./src/poetry-generator/index.ts ",
     "prod": "cross-env NODE_ENV=production npx tsx ",
+    "scratch": "npm run dev -- ./src/scratch.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "text-completion-demo": "npm run prod -- ./src/text-to-emoji-lib/index.ts",
     "text-completion-rest-demo": "npm run prod -- ./src/text-to-emoji-rest/index.ts",
