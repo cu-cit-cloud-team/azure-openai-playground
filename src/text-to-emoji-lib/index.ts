@@ -3,7 +3,7 @@
  * code tested against text-davinci-003
  */
 
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import { oneLineTrim, stripIndents } from 'common-tags';
 import dotenv from 'dotenv';
 
@@ -40,19 +40,13 @@ if (
 const { hrtime } = process;
 const debugStartTime = hrtime();
 
-// create the (Azure) OpenAI client configuration
-const clientConfig = new Configuration({
-  baseOptions: {
-    headers: {
-      'api-key': OPENAI_API_KEY,
-    },
-    params: { 'api-version': OPENAI_AZURE_API_VERSION },
-  },
-  basePath: `${OPENAI_BASE_PATH}openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}`,
+// instantiate the OpenAI client for Azure OpenAI
+const openAI = new OpenAI({
+  apiKey: OPENAI_API_KEY,
+  baseURL: `${OPENAI_BASE_PATH}openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}`,
+  defaultQuery: { 'api-version': '2023-06-01-preview' },
+  defaultHeaders: { 'api-key': OPENAI_API_KEY },
 });
-
-// instantiate the (Azure) OpenAI client
-const openAIClient = new OpenAIApi(clientConfig);
 
 // set to the text you want to analyze (default is CU mission)
 const textToAnalyze = oneLineTrim`
@@ -87,14 +81,14 @@ const prompt = stripIndents`
 `;
 
 // make request to generate the completion
-const gptExample: string = await openAIClient
-  .createCompletion({
+const gptExample = await openAI.completions
+  .create({
     prompt,
-    temperature: 0.2,
+    temperature: 0,
     max_tokens: 1000,
     model: OPENAI_AZURE_MODEL_DEPLOYMENT,
   })
-  .then((response) => response.data.choices[0].text as string)
+  .then((response) => response.choices[0].text)
   .catch((error) => {
     // output error and stop processing
     console.error(error);
@@ -102,8 +96,8 @@ const gptExample: string = await openAIClient
   });
 
 // assume output is good and parse it
-const results = gptExample.trim();
-console.log(JSON.parse(results));
+// const results = gptExample.trim();
+console.log(JSON.parse(gptExample));
 
 if (NODE_ENV === 'development') {
   // output execution time in milliseconds
