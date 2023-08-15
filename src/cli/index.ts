@@ -31,6 +31,7 @@ const programTitle = 'Azure OpenAI Demos';
 const titleStyle = chalk.bold.blue;
 
 // output title
+console.clear();
 console.log(titleStyle(figlet.textSync(programTitle)));
 
 // define demos available to run
