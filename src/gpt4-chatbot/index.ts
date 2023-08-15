@@ -89,7 +89,7 @@ userInterface.on('line', async (input) => {
   if (stream) {
     // console.log(stream);
     let fullResponse = '';
-    process.stdout.write('🤖 ');
+    process.stdout.write('🤖\n');
     for await (const part of stream) {
       const textPart = part.choices[0]?.delta?.content || '';
       fullResponse += textPart;
@@ -99,6 +99,6 @@ userInterface.on('line', async (input) => {
       messages.push({ role: 'assistant', content: fullResponse });
     }
     stream = null;
-    process.stdout.write(' 🔚\n');
+    process.stdout.write('\n🔚\n');
   }
 });
