@@ -58,18 +58,22 @@ const userInterface = readline.createInterface({
 
 console.clear();
 console.log(
-  '🤖',
+  '📡',
   chalk.bold.italic.green('Connection established... begin chatting!'),
 );
 userInterface.prompt();
 
-const messages = [
-  { role: 'system', content: 'You are a helpful AI assistant.' },
-];
+const systemMessage = {
+  role: 'system',
+  content: 'You are a helpful AI assistant.',
+};
+
+const messages = [systemMessage];
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 userInterface.on('line', async (input) => {
   messages.push({ role: 'user', content: input });
+
   let stream;
   try {
     stream = await openAI.chat.completions.create({
@@ -82,9 +86,19 @@ userInterface.on('line', async (input) => {
     process.exit(1);
   }
 
-  // console.log(stream);
-  for await (const part of stream) {
-    process.stdout.write(chalk.blue(part.choices[0]?.delta?.content || ''));
+  if (stream) {
+    // console.log(stream);
+    let fullResponse = '';
+    process.stdout.write('🤖 ');
+    for await (const part of stream) {
+      const textPart = part.choices[0]?.delta?.content || '';
+      fullResponse += textPart;
+      process.stdout.write(chalk.blue(textPart));
+    }
+    if (fullResponse.length) {
+      messages.push({ role: 'assistant', content: fullResponse });
+    }
+    stream = null;
+    process.stdout.write(' 🔚\n');
   }
-  process.stdout.write('\n');
 });
