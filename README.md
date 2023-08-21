@@ -39,12 +39,14 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
 
 ## Notes/Lessons Learned
 
-At the time of writing, the official [OpenAI Node.js Library](https://github.com/openai/openai-node) is NOT (yet)
-supported for use with Azure OpenAI Services (and the Python library has capable but limited "preview" support).
+As of Aug 17, 2023, OpenAi node client has official Azure OpenAI support (released in v4.x of client)
 
-I was able to get the official Node.js library to work with Azure OpenAI Services by using some workarounds. There are
+~~At the time of writing, the official [OpenAI Node.js Library](https://github.com/openai/openai-node) is NOT (yet)
+supported for use with Azure OpenAI Services (and the Python library has capable but limited "preview" support).~~
+
+~~I was able to get the official Node.js library to work with Azure OpenAI Services by using some workarounds. There are
 NO guarantees that this will continue to work in the future. Once official library support is available, I will use
-the supported and documented approach.
+the supported and documented approach.~~
 
 ### Typical OpenAI Node.js Client Setup
 
@@ -54,37 +56,13 @@ This is a pretty common setup for using the official OpenAI Node.js library with
 // load env vars
 const { OPENAI_API_KEY } = process.env;
 
-// create configuration object for client
-const clientConfig = new Configuration({
-  apiKey: OPENAI_API_KEY, // standard OpenAI API key from openai.com
-});
-
 // instantiate client
-const openAiClient = new OpenAIApi(clientConfig);
+const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
 ```
 
-### Expected Azure OpenAI Node.js Client Setup (NOT WORKING)
+### Azure OpenAI Node.js Client Setup
 
-While the official OpenAI Node.js library is NOT yet supported for Azure OpenAI Services, the following is what I would
-expect the setup to look like once it is supported:
-
-```javascript
-// load env vars
-const { AZURE_OPENAI_BASE_PATH, OPENAI_API_KEY } = process.env;
-
-// create configuration object for client
-const clientConfig = new Configuration({
-  apiKey: OPENAI_API_KEY, // Azure OpenAI API key from your deployment
-  basePath: AZURE_OPENAI_BASE_PATH, // ex: https://deployment-name.openai.azure.com/
-});
-
-// instantiate client
-const openAIClient = new OpenAIApi(clientConfig);
-```
-
-### Unsupported/undocumented Azure OpenAI Node.js Client Setup (WORKING)
-
-Some examination of requests and experimentation led to the following setup that works with Azure OpenAI Services:
+This is the (now) supported setup for using Azure OpenAI Services APIs with the official OpenAI Node.js library:
 
 ```javascript
 // load env vars
@@ -92,22 +70,16 @@ const {
   OPENAI_BASE_PATH, // ex: https://deployment-name.openai.azure.com/
   OPENAI_API_KEY, // Azure OpenAI API key from your deployment
   OPENAI_AZURE_MODEL_DEPLOYMENT, // ex: model-deployment-name-gpt-35-turbo-0301 (when you deploy a model you give it's deployment a name, use that here vs the model name itself)
-  OPENAI_AZURE_API_VERSION, // ex: 2023-03-15-preview
+  OPENAI_AZURE_API_VERSION, // ex: 2023-06-03-preview
 } = process.env;
 
-// create configuration object for client
-const clientConfig = new Configuration({
-  baseOptions: {
-    headers: {
-      'api-key': OPENAI_API_KEY,
-    },
-    params: { 'api-version': OPENAI_AZURE_API_VERSION },
-  },
-  basePath: `${OPENAI_BASE_PATH}openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}`,
-});
-
 // instantiate client
-const openAIClient = new OpenAIApi(clientConfig);
+const openAI = new OpenAI({
+  apiKey: OPENAI_API_KEY,
+  baseURL: `${OPENAI_BASE_PATH}openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}`,
+  defaultQuery: { 'api-version': OPENAI_AZURE_API_VERSION },
+  defaultHeaders: { 'api-key': OPENAI_API_KEY },
+});
 ```
 
 ## Demos
