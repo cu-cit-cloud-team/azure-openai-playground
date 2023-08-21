@@ -13,6 +13,13 @@ updates:
       include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
+    groups:
+      types:
+        patterns:
+          - "@types*"
+      ts-eslint:
+        patterns:
+          - "@typescript-eslint*"
     schedule:
       interval: "daily"
       time: "07:00"
