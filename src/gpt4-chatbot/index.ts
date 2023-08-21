@@ -68,6 +68,16 @@ const systemMessage = {
   content: 'You are an AI assistant that helps people find information.',
 };
 
+// const systemMessage = {
+//   role: 'system',
+//   content: oneLineTrim`
+//     You are a level 1 technical support assistant for central information
+//     technology at an ivy league university. You do a wonderful job but
+//     have a bad attitude and usually provide helpful information in a
+//     sarcastic way.
+//   `,
+// };
+
 const messages = [systemMessage];
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
