@@ -14,12 +14,12 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     groups:
-      types:
-        patterns:
-          - "@types*"
-      ts-eslint:
+      typescript-eslint:
         patterns:
           - "@typescript-eslint*"
+      types:
+        patterns:
+          - "@types/*"
     schedule:
       interval: "daily"
       time: "07:00"
