@@ -67,16 +67,14 @@ const resultsShape = [
 
 // prompt that will be sent to (Azure) OpenAI for a completion
 const prompt = stripIndents`
-  Analyze the supplied text and return a JSON array of objects containing unique unicode
+  Analyze the text delimited by triple quotes and return a JSON array of objects containing unique unicode
   v15 emojis that best represent it.
   - Each object in the array should contain the emoji, the markdown short code for the emoji, and the reasoning for choosing it
   - JSON response should have a shape of: ${JSON.stringify(resultsShape)}.
   - Each emoji should be unique, do NOT return duplicate emojis even if the reason is different.
 
   ---
-  Text to analyze:
-
-  ${textToAnalyze}
+  """${textToAnalyze}"""
   ---
 `;
 
