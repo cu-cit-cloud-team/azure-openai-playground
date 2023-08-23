@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import dotenv from 'dotenv';
+import inquirer, { Answers } from 'inquirer';
 import { oneLineTrim } from 'common-tags';
 import readline from 'node:readline';
 import OpenAI from 'openai';
@@ -38,6 +39,7 @@ readline.emitKeypressEvents(process.stdin);
 process.stdin.on('keypress', (ch, key: KeyPressKey) => {
   if (key.ctrl && key.name == 'c') {
     process.stdin.pause();
+    console.log('');
     console.log(showGoodbye());
     process.exit(0);
   }
@@ -51,17 +53,11 @@ const openAI = new OpenAI({
   defaultHeaders: { 'api-key': OPENAI_GPT4_API_KEY },
 });
 
-const userInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
 console.clear();
 console.log(
   '📡',
   chalk.bold.italic.green('Connection established... begin chatting!'),
 );
-userInterface.prompt();
 
 const systemMessage = {
   role: 'system',
@@ -80,9 +76,17 @@ const systemMessage = {
 
 const messages = [systemMessage];
 
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-userInterface.on('line', async (input) => {
-  messages.push({ role: 'user', content: input });
+const chatPrompt = async (): Promise<void> => {
+  const answer: Answers = await inquirer.prompt({
+    type: 'input',
+    name: 'message',
+    prefix: '',
+    message: '> ',
+  });
+
+  const { message } = answer;
+
+  messages.push({ role: 'user', content: message.trim() });
 
   let stream;
   try {
@@ -99,7 +103,7 @@ userInterface.on('line', async (input) => {
   if (stream) {
     // console.log(stream);
     let fullResponse = '';
-    process.stdout.write('🤖\n');
+    process.stdout.write('🤖  ');
     for await (const part of stream) {
       const textPart = part.choices[0]?.delta?.content || '';
       fullResponse += textPart;
@@ -109,6 +113,10 @@ userInterface.on('line', async (input) => {
       messages.push({ role: 'assistant', content: fullResponse });
     }
     stream = null;
-    process.stdout.write('\n🔚\n');
+    console.log('');
   }
-});
+
+  await chatPrompt();
+};
+
+await chatPrompt();
