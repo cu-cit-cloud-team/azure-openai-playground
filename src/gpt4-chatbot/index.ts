@@ -36,7 +36,7 @@ if (
 
 readline.emitKeypressEvents(process.stdin);
 
-process.stdin.on('keypress', (ch, key: KeyPressKey) => {
+process.stdin.on('keypress', (ch, key) => {
   if (key.ctrl && key.name == 'c') {
     process.stdin.pause();
     console.log('');
@@ -59,7 +59,7 @@ console.log(
   chalk.bold.italic.green('Connection established... begin chatting!'),
 );
 
-const systemMessage = {
+const systemMessage: OpenAI.Chat.CreateChatCompletionRequestMessage = {
   role: 'system',
   content: 'You are an AI assistant that helps people find information.',
 };
@@ -86,7 +86,7 @@ const chatPrompt = async (): Promise<void> => {
 
   const { message } = answer;
 
-  messages.push({ role: 'user', content: message.trim() });
+  messages.push({ role: 'user', content: (message as string).trim() });
 
   let stream;
   try {
