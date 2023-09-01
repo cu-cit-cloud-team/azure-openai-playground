@@ -68,7 +68,7 @@
     "nodemon": "3.0.1",
     "prettier": "3.0.3",
     "prettier-eslint": "15.0.1",
-    "tsx": "3.12.7",
+    "tsx": "3.12.8",
     "typedoc": "0.25.0",
     "typedoc-plugin-markdown": "3.16.0",
     "typescript": "5.2.2"
