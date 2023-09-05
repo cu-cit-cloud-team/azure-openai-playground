@@ -51,7 +51,7 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@babel/core": "7.22.11",
+    "@babel/core": "7.22.15",
     "@types/common-tags": "1.8.2",
     "@types/figlet": "1.5.6",
     "@types/inquirer": "9.0.3",
