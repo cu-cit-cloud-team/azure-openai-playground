@@ -46,7 +46,9 @@ export const execNpmCommand = ({
   bennyHill = false,
 }: ExecNpmCommandParams) => {
   exec(
-    `${bennyHill ? 'benny-hill ' : ''}npm run ${command} --silent -- ${flags}`,
+    `${
+      bennyHill ? 'npx benny-hill ' : ''
+    }npm run ${command} --silent -- ${flags}`,
     (error, stdout) => {
       if (error) {
         if (spinnerRef) {
