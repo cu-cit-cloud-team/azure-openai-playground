@@ -23,6 +23,7 @@ export interface ExecNpmCommandParams {
   flags: string;
   callback: (...args: any) => any;
   spinnerRef?: Ora;
+  playMusic?: boolean;
 }
 
 // helper methods
@@ -35,7 +36,7 @@ export interface ExecNpmCommandParams {
  * @param {string} params.flags - flags to pass to the npm command
  * @param {Function} params.callback - callback function to execute after the npm command is executed
  * @param {Ora} params.spinnerRef - Ora spinner reference to stop
- * @param {boolean} params.bennyHill - whether to play the benny hill theme song while the command is executing
+ * @param {boolean} [params.playMusic=false] - whether to play the benny hill theme song while the command is executing
  * @returns {void}
  */
 export const execNpmCommand = ({
@@ -43,11 +44,11 @@ export const execNpmCommand = ({
   flags,
   callback,
   spinnerRef = undefined,
-  bennyHill = false,
+  playMusic = false,
 }: ExecNpmCommandParams) => {
   exec(
     `${
-      bennyHill ? 'npx benny-hill ' : ''
+      playMusic ? 'npx benny-hill ' : ''
     }npm run ${command} --silent -- ${flags}`,
     (error, stdout) => {
       if (error) {

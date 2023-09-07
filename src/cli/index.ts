@@ -147,7 +147,7 @@ switch (startChoice) {
       flags: `--prompt "${imageGenerationPrompt as string}" --display false`,
       callback: imageGenCallback,
       spinnerRef: imageSpinner,
-      bennyHill: true,
+      playMusic: true,
     });
 
     break;
