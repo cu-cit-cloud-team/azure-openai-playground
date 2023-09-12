@@ -31,13 +31,12 @@ if (
       OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
     `,
   );
-  process.exit(1);
 }
 
 readline.emitKeypressEvents(process.stdin);
 
 process.stdin.on('keypress', (ch, key) => {
-  if (key.ctrl && key.name == 'c') {
+  if (key.ctrl && key.name === 'c') {
     process.stdin.pause();
     console.log('');
     console.log(showGoodbye());

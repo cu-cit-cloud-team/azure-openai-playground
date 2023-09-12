@@ -95,7 +95,6 @@ export const defaultHeaders = (
       OPENAI_API_KEY
     `,
     );
-    process.exit(1);
   }
   return {
     'api-key': OPENAI_API_KEY,
@@ -117,7 +116,6 @@ export const imageGenerationUrl = (): string => {
       OPENAI_BASE_PATH, OPENAI_AZURE_DALLE_API_VERSION
     `,
     );
-    process.exit(1);
   }
 
   return `${OPENAI_BASE_PATH}dalle/text-to-image?api-version=${OPENAI_AZURE_DALLE_API_VERSION}`;
@@ -142,7 +140,6 @@ export const textCompletionUrl = (): string => {
       OPENAI_BASE_PATH, OPENAI_AZURE_MODEL_DEPLOYMENT, OPENAI_AZURE_API_VERSION
     `,
     );
-    process.exit(1);
   }
 
   return `${OPENAI_BASE_PATH}/openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}/completions?api-version=${OPENAI_AZURE_API_VERSION}`;

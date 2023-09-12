@@ -33,7 +33,6 @@ if (
       OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
     `,
   );
-  process.exit(1);
 }
 
 // get current high-resolution real-time from process in nanoseconds

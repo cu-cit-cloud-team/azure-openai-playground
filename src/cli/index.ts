@@ -17,7 +17,7 @@ import { Language, languages } from '../lib/translator.js';
 readline.emitKeypressEvents(process.stdin);
 
 process.stdin.on('keypress', (ch, key: KeyPressKey) => {
-  if (key.ctrl && key.name == 'c') {
+  if (key.ctrl && key.name === 'c') {
     process.stdin.pause();
     console.log('\n', showGoodbye());
     process.exit(0);
