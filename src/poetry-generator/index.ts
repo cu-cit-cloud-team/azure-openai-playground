@@ -23,7 +23,7 @@ const requestedForm =
     : poeticForms[randomNum(poeticForms.length)].type;
 
 const poemType: PoeticForm = poeticForms.filter(
-  (poeticForm) => poeticForm.type.toLowerCase() === requestedForm.toLowerCase(),
+  (poeticForm) => poeticForm.type.toLowerCase() === requestedForm.toLowerCase()
 )[0];
 
 const poemSubject = argv.poemSubject ?? 'Cornell University';
@@ -46,7 +46,7 @@ const prompt = `You are a poetry generator with the following parameters:
 const completion = await doTextCompletion({ prompt, temperature: 0 });
 
 console.log(
-  `${poemType.type} about ${poemSubject as string}:\n\n${completion}`,
+  `${poemType.type} about ${poemSubject as string}:\n\n${completion}`
 );
 
 if (NODE_ENV === 'development') {

@@ -93,7 +93,7 @@ export const showGoodbye = () => {
   ];
 
   return chalk.bold.italic.blue(
-    `👋 ${goodbyeStrings[randomNum(goodbyeStrings.length)]}`,
+    `👋 ${goodbyeStrings[randomNum(goodbyeStrings.length)]}`
   );
 };
 

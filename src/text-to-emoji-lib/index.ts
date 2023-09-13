@@ -31,7 +31,7 @@ if (
       Missing one or more required environment variables:
 
       OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
-    `,
+    `
   );
 }
 

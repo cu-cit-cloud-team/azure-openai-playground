@@ -61,6 +61,6 @@ export const execNpmCommand = ({
         spinnerRef.succeed();
       }
       callback(stdout);
-    },
+    }
   );
 };

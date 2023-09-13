@@ -128,7 +128,7 @@ switch (startChoice) {
       });
 
     const imageSpinner = ora(
-      'Generating image (this can take a little while)',
+      'Generating image (this can take a little while)'
     ).start();
 
     const imageGenCallback = async (stdout: string): Promise<void> => {
@@ -166,7 +166,7 @@ switch (startChoice) {
         [poeticForm] = poeticForms.filter(
           (item) =>
             item.type.toLowerCase() ===
-            (response.answer as string).toLowerCase(),
+            (response.answer as string).toLowerCase()
         );
         // console.log(poeticForm);
         await inquirer
@@ -180,7 +180,7 @@ switch (startChoice) {
             poemSubject = response.answer as string;
 
             const poemSpinner = ora(
-              `Generating ${poeticForm.type.toLowerCase()}`,
+              `Generating ${poeticForm.type.toLowerCase()}`
             ).start();
 
             execNpmCommand({
@@ -194,7 +194,7 @@ switch (startChoice) {
                     margin: 1,
                     borderStyle: 'double',
                     borderColor: 'blue',
-                  }),
+                  })
                 );
                 console.log(poeticForm.rules);
               },
@@ -223,7 +223,7 @@ switch (startChoice) {
         [language] = languages.filter(
           (item) =>
             item.name.toLowerCase() ===
-            (response.answer as string).toLowerCase(),
+            (response.answer as string).toLowerCase()
         );
         // console.log(language);
         await inquirer
@@ -237,7 +237,7 @@ switch (startChoice) {
             textToTranslate = response.answer as string;
 
             const translationSpinner = ora(
-              `Generating ${language.name} translation`,
+              `Generating ${language.name} translation`
             ).start();
 
             execNpmCommand({

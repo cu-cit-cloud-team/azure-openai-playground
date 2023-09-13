@@ -85,7 +85,7 @@ export interface SaveImageGenerationResultParams {
  * @returns {Headers} An object containing the headers
  */
 export const defaultHeaders = (
-  userAgent = 'cloud-team-automation',
+  userAgent = 'cloud-team-automation'
 ): Headers => {
   if (!OPENAI_API_KEY) {
     throw new Error(
@@ -93,7 +93,7 @@ export const defaultHeaders = (
       Missing one or more required environment variables:
 
       OPENAI_API_KEY
-    `,
+    `
     );
   }
   return {
@@ -114,7 +114,7 @@ export const imageGenerationUrl = (): string => {
       Missing one or more required environment variables:
 
       OPENAI_BASE_PATH, OPENAI_AZURE_DALLE_API_VERSION
-    `,
+    `
     );
   }
 
@@ -138,7 +138,7 @@ export const textCompletionUrl = (): string => {
       Missing one or more required environment variables:
 
       OPENAI_BASE_PATH, OPENAI_AZURE_MODEL_DEPLOYMENT, OPENAI_AZURE_API_VERSION
-    `,
+    `
     );
   }
 
@@ -218,7 +218,7 @@ export const getImageGenerationResult = async ({
     });
 
     const imageOperationResponseBody = JSON.parse(
-      imageOperationResponse.body,
+      imageOperationResponse.body
     ) as ImageOperationResponse;
 
     const imageResult: ImageOperationResponseResult =
@@ -311,7 +311,7 @@ export const doTextCompletion = async ({
     });
 
   const completionResponse = JSON.parse(
-    completionResponseBody,
+    completionResponseBody
   ) as TextCompletionResponse;
 
   const completion = completionResponse.choices[0].text.trim();

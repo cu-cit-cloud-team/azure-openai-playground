@@ -41,7 +41,7 @@ const prompt = stripIndents`
   v15 emojis that best represent it. Each object in the array should contain the emoji,
   the markdown short code for the emoji, and the reasoning for choosing it. Do NOT return
   any duplicate emojis. JSON response should have a shape of: ${JSON.stringify(
-    resultsShape,
+    resultsShape
   )}.
 
   Analyze this text:

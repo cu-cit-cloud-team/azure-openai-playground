@@ -24,7 +24,7 @@ const requestedLanguage =
     : languages[randomNum(languages.length)].name;
 
 const language: Language = languages.filter(
-  (language) => language.name.toLowerCase() === requestedLanguage.toLowerCase(),
+  (language) => language.name.toLowerCase() === requestedLanguage.toLowerCase()
 )[0];
 
 const textToTranslate = argv.text ?? 'Where can I find some good tacos?';
@@ -44,7 +44,7 @@ const completion = await doTextCompletion({ prompt, temperature: 0 });
 console.log(
   `English to ${language.name} translation:\n\n${
     textToTranslate as string
-  }\n\n${completion}`,
+  }\n\n${completion}`
 );
 
 if (NODE_ENV === 'development') {
