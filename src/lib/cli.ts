@@ -1,5 +1,5 @@
-import { Ora } from 'ora';
 import { exec } from 'node:child_process';
+import { Ora } from 'ora';
 
 import { handleError } from './helpers.js';
 
@@ -35,7 +35,7 @@ export interface ExecNpmCommandParams {
  * @param {string} params.command - npm command to execute
  * @param {string} params.flags - flags to pass to the npm command
  * @param {Function} params.callback - callback function to execute after the npm command is executed
- * @param {Ora} params.spinnerRef - Ora spinner reference to stop
+ * @param {Ora} [params.spinnerRef=undefined] - Ora spinner reference to stop
  * @param {boolean} [params.playMusic=false] - whether to play the benny hill theme song while the command is executing
  * @returns {void}
  */
