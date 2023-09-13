@@ -16,7 +16,10 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "style": {
+        "useBlockStatements": "error"
+      }
     }
   },
   "formatter": {
@@ -30,10 +33,10 @@
     "formatter": {
       "quoteProperties": "preserve",
       "arrowParentheses": "always",
-      "jsxQuoteStyle": "single",
+      "jsxQuoteStyle": "double",
       "quoteStyle": "single",
       "semicolons": "always",
-      "trailingComma": "all"
+      "trailingComma": "es5"
     }
   }
 }
