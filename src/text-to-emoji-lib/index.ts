@@ -3,9 +3,9 @@
  * code tested against text-davinci-003
  */
 
-import OpenAI from 'openai';
 import { oneLineTrim, stripIndents } from 'common-tags';
 import dotenv from 'dotenv';
+import OpenAI from 'openai';
 
 // load environment variables from .env file
 dotenv.config();

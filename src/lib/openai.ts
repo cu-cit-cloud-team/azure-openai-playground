@@ -1,8 +1,8 @@
-import got, { Headers } from 'got';
-import { oneLineTrim } from 'common-tags';
-import { v4 as uuid } from 'uuid';
-import dotenv from 'dotenv';
 import fs from 'node:fs';
+import { oneLineTrim } from 'common-tags';
+import dotenv from 'dotenv';
+import got, { Headers } from 'got';
+import { v4 as uuid } from 'uuid';
 
 import { wait } from './helpers.js';
 

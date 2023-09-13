@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 import yargs from 'yargs';
 
+import { stripIndents } from 'common-tags';
 import { Arguments, randomNum } from '../lib/helpers.js';
 import { doTextCompletion } from '../lib/openai.js';
 import { Language, languages } from '../lib/translator.js';
-import { stripIndents } from 'common-tags';
 
 const argv = yargs(process.argv.slice(2)).argv as unknown as Arguments;
 

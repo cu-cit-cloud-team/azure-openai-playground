@@ -1,8 +1,8 @@
+import readline from 'node:readline';
 import chalk from 'chalk';
+import { oneLineTrim } from 'common-tags';
 import dotenv from 'dotenv';
 import inquirer, { Answers } from 'inquirer';
-import { oneLineTrim } from 'common-tags';
-import readline from 'node:readline';
 import OpenAI from 'openai';
 
 import { showGoodbye } from '../lib/helpers.js';
