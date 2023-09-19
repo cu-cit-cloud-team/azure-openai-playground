@@ -21,13 +21,13 @@
     "text-completion-demo": "npm run prod -- ./src/text-to-emoji-lib/index.ts",
     "text-completion-rest-demo": "npm run prod -- ./src/text-to-emoji-rest/index.ts",
     "typecheck": "npx tsc --noEmit",
-    "typedoc": "typedoc --out ./docs --entryPointStrategy expand ./src/lib --plugin typedoc-plugin-markdown --readme none"
+    "typedoc": "npx typedoc --out ./docs --entryPointStrategy expand ./src/lib --plugin typedoc-plugin-markdown --readme none"
   },
   "engines": {
     "node": ">= 18.x",
     "npm": ">= 8.x"
   },
-  "keywords": [],
+  "keywords": ["azure", "openai", "azure openai"],
   "author": {
     "name": "Michael Sprague",
     "email": "ms388@cornell.edu"
