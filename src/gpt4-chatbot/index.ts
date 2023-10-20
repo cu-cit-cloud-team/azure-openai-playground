@@ -29,7 +29,7 @@ if (
       Missing one or more required environment variables:
 
       OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
-    `,
+    `
   );
 }
 
@@ -48,14 +48,14 @@ process.stdin.on('keypress', (ch, key) => {
 const openAI = new OpenAI({
   apiKey: OPENAI_GPT4_API_KEY,
   baseURL: `${OPENAI_GPT4_BASE_PATH}openai/deployments/${OPENAI_GPT4_AZURE_MODEL_DEPLOYMENT}`,
-  defaultQuery: { 'api-version': '2023-06-01-preview' },
+  defaultQuery: { 'api-version': '2023-08-01-preview' },
   defaultHeaders: { 'api-key': OPENAI_GPT4_API_KEY },
 });
 
 console.clear();
 console.log(
   '📡',
-  chalk.bold.italic.green('Connection established... begin chatting!'),
+  chalk.bold.italic.green('Connection established... begin chatting!')
 );
 
 const systemMessage: OpenAI.Chat.CreateChatCompletionRequestMessage = {
