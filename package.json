@@ -24,8 +24,8 @@
     "typedoc": "npx typedoc --out ./docs --entryPointStrategy expand ./src/lib --plugin typedoc-plugin-markdown --readme none"
   },
   "engines": {
-    "node": ">= 18.x",
-    "npm": ">= 8.x"
+    "node": ">= 20.x",
+    "npm": ">= 10.x"
   },
   "keywords": ["azure", "openai", "azure openai"],
   "author": {
