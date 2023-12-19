@@ -12,23 +12,19 @@ dotenv.config();
 
 // destructure environment variables we need
 const {
-  // OPENAI_AZURE_API_VERSION,
-  OPENAI_GPT4_API_KEY,
-  OPENAI_GPT4_BASE_PATH,
-  OPENAI_GPT4_AZURE_MODEL_DEPLOYMENT,
+  // AOAI_API_VERSION,
+  AOAI_API_KEY,
+  AOAI_BASE_PATH,
+  AOAI_GPT4_DEPLOYMENT_NAME,
 } = process.env;
 
 // check that all required environment variables are set
-if (
-  !OPENAI_GPT4_API_KEY ||
-  !OPENAI_GPT4_BASE_PATH ||
-  !OPENAI_GPT4_AZURE_MODEL_DEPLOYMENT
-) {
+if (!AOAI_API_KEY || !AOAI_BASE_PATH || !AOAI_GPT4_DEPLOYMENT_NAME) {
   throw new Error(
     oneLineTrim`
       Missing one or more required environment variables:
 
-      OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
+      AOAI_API_KEY, AOAI_BASE_PATH, AOAI_GPT4_DEPLOYMENT_NAME
     `
   );
 }
@@ -46,10 +42,10 @@ process.stdin.on('keypress', (ch, key) => {
 
 // instantiate the OpenAI client for Azure OpenAI
 const openAI = new OpenAI({
-  apiKey: OPENAI_GPT4_API_KEY,
-  baseURL: `${OPENAI_GPT4_BASE_PATH}openai/deployments/${OPENAI_GPT4_AZURE_MODEL_DEPLOYMENT}`,
+  apiKey: AOAI_API_KEY,
+  baseURL: `${AOAI_BASE_PATH}openai/deployments/${AOAI_GPT4_DEPLOYMENT_NAME}`,
   defaultQuery: { 'api-version': '2023-08-01-preview' },
-  defaultHeaders: { 'api-key': OPENAI_GPT4_API_KEY },
+  defaultHeaders: { 'api-key': AOAI_API_KEY },
 });
 
 console.clear();
@@ -90,7 +86,7 @@ const chatPrompt = async (): Promise<void> => {
   let stream;
   try {
     stream = await openAI.chat.completions.create({
-      model: OPENAI_GPT4_AZURE_MODEL_DEPLOYMENT,
+      model: AOAI_GPT4_DEPLOYMENT_NAME,
       messages,
       stream: true,
     });
