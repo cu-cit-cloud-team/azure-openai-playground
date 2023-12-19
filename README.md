@@ -4,8 +4,6 @@ Misc. experiments with Azure OpenAI
 
 ## About
 
-Looking into what's different in Azure OpenAI (vs using OpenAI directly) and where the official Node.js library does and doesn't work.
-
 Demos use Node.js/TypeScript to run some simple examples against an Azure OpenAI Services resource.
 
 NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
@@ -14,7 +12,7 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
 
 ### Prerequisites
 
-- Node.js >= 18.x (with npm >= v8.x)
+- Node.js >= 20.x (with npm >= v10.x)
 - Azure subscription with [access to Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview#how-do-i-get-access-to-azure-openai)
   - Deployed/available Azure OpenAI [resource and models](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource?pivots=web-portal)
 
@@ -27,60 +25,19 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
 1. Install dependencies
     - `npm install`
 1. Copy `.env.example` to `.env` and then replace necessary values `cp .env.example .env`
-    - `OPENAI_BASE_PATH` set to your Azure OpenAI resource endpoint
-    - `OPENAI_API_KEY` set to your Azure OpenAI resource API key
-    - `OPENAI_AZURE_MODEL_DEPLOYMENT` set to the name of the deployed Azure OpenAI model you want to use. Note that this should be the deployment name vs the name of the model itself (e.g. "deployment-name-text-davinci-003" vs "text-davinci-003")
-    - `OPENAI_AZURE_API_VERSION` set to Azure OpenAI API Version, supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
-    - `OPENAI_AZURE_DALLE_API_VERSION` if using DALL-E, set to Azure OpenAI DALL-E API Version (not in official docs yet, "2022-08-03-preview" is the only working version I've found)
+    - `AOAI_BASE_PATH` set to your Azure OpenAI resource endpoint
+    - `AOAI_API_KEY` set to your Azure OpenAI resource API key
+    - `AOAI_GPT4_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-4 model you want to use
+    - `AOAI_GPT35_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-35 model you want to use
+    - `AOAI_GPT4_VISION_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-4 Vision model you want to use
+    - `AOAI_COMPLETIONS_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI completions model (e.g. 'davinci-002') you want to use
+    - `AOAI_DALLE_DEPLOYMENT_NAME` set to the name of the deployed Azure DALL-E 3 model you want to use
+    - `AOAI_API_VERSION` set to Azure OpenAI API Version (e.g. `2023-12-01-preview`), supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
+    - `AOAI_DALLE_API_VERSION` set to Azure OpenAI DALL-E 3 API Version (e.g. `2023-12-01-preview`)
 1. Run one of the demos:
     - `npm run text-completion-demo` ([demo info](#text-completion-demo-using-official-nodejs-openai-library))
     - `npm run text-completion-rest-demo` ([demo info](#text-completion-demo-using-rest-api))
     - `npm run image-generation-demo` ([demo info](#image-generation-demo-using-rest-api))
-
-## Notes/Lessons Learned
-
-As of Aug 17, 2023, OpenAi node client has official Azure OpenAI support (released in v4.x of client)
-
-~~At the time of writing, the official [OpenAI Node.js Library](https://github.com/openai/openai-node) is NOT (yet)
-supported for use with Azure OpenAI Services (and the Python library has capable but limited "preview" support).~~
-
-~~I was able to get the official Node.js library to work with Azure OpenAI Services by using some workarounds. There are
-NO guarantees that this will continue to work in the future. Once official library support is available, I will use
-the supported and documented approach.~~
-
-### Typical OpenAI Node.js Client Setup
-
-This is a pretty common setup for using the official OpenAI Node.js library with OpenAI APIs directly:
-
-```javascript
-// load env vars
-const { OPENAI_API_KEY } = process.env;
-
-// instantiate client
-const openAI = new OpenAI({ apiKey: OPENAI_API_KEY });
-```
-
-### Azure OpenAI Node.js Client Setup
-
-This is the (now) supported setup for using Azure OpenAI Services APIs with the official OpenAI Node.js library:
-
-```javascript
-// load env vars
-const {
-  OPENAI_BASE_PATH, // ex: https://deployment-name.openai.azure.com/
-  OPENAI_API_KEY, // Azure OpenAI API key from your deployment
-  OPENAI_AZURE_MODEL_DEPLOYMENT, // ex: model-deployment-name-gpt-35-turbo-0301 (when you deploy a model you give it's deployment a name, use that here vs the model name itself)
-  OPENAI_AZURE_API_VERSION, // ex: 2023-06-03-preview
-} = process.env;
-
-// instantiate client
-const openAI = new OpenAI({
-  apiKey: OPENAI_API_KEY,
-  baseURL: `${OPENAI_BASE_PATH}openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}`,
-  defaultQuery: { 'api-version': OPENAI_AZURE_API_VERSION },
-  defaultHeaders: { 'api-key': OPENAI_API_KEY },
-});
-```
 
 ## Demos
 
@@ -91,7 +48,7 @@ Uses the official Node.js OpenAI library to access an Azure OpenAI resource endp
 Demo analyzes a text string and returns a list of emojis that best represent the text. The data is returned as a JSON array of objects
 with keys for the emoji, the markdown short code, and the reasoning for choosing that emoji.
 
-NOTE: works best with a `davinci`-based text model. Tested with `text-davinci-003`.
+NOTE: this demo uses `davinci-002` model
 
 Input text:
 > "Cornell is a private, Ivy League university and the land-grant university for New York state. Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next generation of global citizens, and to promote a culture of broad inquiry throughout and beyond the Cornell community. Cornell also aims, through public service, to enhance the lives and livelihoods of students, the people of New York and others around the world."
@@ -143,10 +100,9 @@ for more details, input text, and example output.
 Uses [Got HTTP request library](https://github.com/sindresorhus/got) to access an Azure OpenAI resource endpoint and generate an
 image with DALL-E.
 
-Demo takes a text prompt and sends it to the DALL-E endpoint to request an image be generated. It then reads the response headers
-to get the URL of the image operation and polls that image operation URL (using exponential back-off) until the image is ready.
-Once the image is ready, it downloads it and saves it locally as a PNG file. The terminal output will show the original prompt,
-the path to the generated image, and a preview of the image in the terminal.
+Demo takes a text prompt and sends it to the DALL-E 3 endpoint to request an image. It then downloads the image and saves it
+locally as a PNG file. The terminal output will show the original prompt, the path to the generated image, and a preview of
+the image in the terminal.
 
 Input text:
 > "Detailed image of a clock tower with a pumpkin on the very top of it's spire"
