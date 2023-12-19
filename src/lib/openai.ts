@@ -12,7 +12,7 @@ const {
   AOAI_BASE_PATH,
   AOAI_API_KEY,
   AOAI_API_VERSION,
-  AOAI_COMPLETIONS_DEPLOYMENT_NAME,
+  AOAI_INSTRUCT_DEPLOYMENT_NAME,
   AOAI_DALLE_API_VERSION,
   AOAI_DALLE_DEPLOYMENT_NAME,
   AOAI_GPT35_DEPLOYMENT_NAME,
@@ -253,7 +253,7 @@ export const saveImageGenerationResult = async ({
  */
 export const doTextCompletion = async ({
   prompt,
-  apiUrl: url = textCompletionUrl(AOAI_COMPLETIONS_DEPLOYMENT_NAME),
+  apiUrl: url = textCompletionUrl(AOAI_INSTRUCT_DEPLOYMENT_NAME),
   requestHeaders = defaultHeaders(),
   maxTokens: max_tokens = 1000,
   temperature = 0.2,

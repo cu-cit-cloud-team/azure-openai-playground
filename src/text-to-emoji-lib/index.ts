@@ -12,25 +12,25 @@ dotenv.config();
 
 // destructure environment variables we need
 const {
-  OPENAI_BASE_PATH,
-  OPENAI_API_KEY,
-  OPENAI_AZURE_MODEL_DEPLOYMENT,
-  OPENAI_AZURE_API_VERSION,
+  AOAI_BASE_PATH,
+  AOAI_API_KEY,
+  AOAI_INSTRUCT_DEPLOYMENT_NAME,
+  AOAI_API_VERSION,
   NODE_ENV,
 } = process.env;
 
 // check that all required environment variables are set
 if (
-  !OPENAI_BASE_PATH ||
-  !OPENAI_API_KEY ||
-  !OPENAI_AZURE_API_VERSION ||
-  !OPENAI_AZURE_MODEL_DEPLOYMENT
+  !AOAI_BASE_PATH ||
+  !AOAI_API_KEY ||
+  !AOAI_API_VERSION ||
+  !AOAI_INSTRUCT_DEPLOYMENT_NAME
 ) {
   throw new Error(
     oneLineTrim`
       Missing one or more required environment variables:
 
-      OPENAI_BASE_PATH, OPENAI_API_KEY, OPENAI_AZURE_DALLE_API_VERSION, OPENAI_AZURE_MODEL_DEPLOYMENT
+      AOAI_BASE_PATH, AOAI_API_KEY, AOAI_DALLE_API_VERSION, AOAI_INSTRUCT_DEPLOYMENT_NAME
     `
   );
 }
@@ -41,10 +41,10 @@ const debugStartTime = hrtime();
 
 // instantiate the OpenAI client for Azure OpenAI
 const openAI = new OpenAI({
-  apiKey: OPENAI_API_KEY,
-  baseURL: `${OPENAI_BASE_PATH}openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}`,
-  defaultQuery: { 'api-version': '2023-06-01-preview' },
-  defaultHeaders: { 'api-key': OPENAI_API_KEY },
+  apiKey: AOAI_API_KEY,
+  baseURL: `${AOAI_BASE_PATH}openai/deployments/${AOAI_INSTRUCT_DEPLOYMENT_NAME}`,
+  defaultQuery: { 'api-version': '2023-09-01-preview' },
+  defaultHeaders: { 'api-key': AOAI_API_KEY },
 });
 
 // set to the text you want to analyze (default is CU mission)
@@ -83,7 +83,7 @@ const gptExample = await openAI.completions
     prompt,
     temperature: 0,
     max_tokens: 1000,
-    model: OPENAI_AZURE_MODEL_DEPLOYMENT,
+    model: AOAI_INSTRUCT_DEPLOYMENT_NAME,
   })
   .then((response) => response.choices[0].text)
   .catch((error) => {
