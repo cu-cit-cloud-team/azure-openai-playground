@@ -48,7 +48,7 @@ Uses the official Node.js OpenAI library to access an Azure OpenAI resource endp
 Demo analyzes a text string and returns a list of emojis that best represent the text. The data is returned as a JSON array of objects
 with keys for the emoji, the markdown short code, and the reasoning for choosing that emoji.
 
-NOTE: this demo uses `davinci-002` model
+NOTE: this demo works best with the `gpt-35-turbo-instruct` model
 
 Input text:
 > "Cornell is a private, Ivy League university and the land-grant university for New York state. Cornell's mission is to discover, preserve and disseminate knowledge, to educate the next generation of global citizens, and to promote a culture of broad inquiry throughout and beyond the Cornell community. Cornell also aims, through public service, to enhance the lives and livelihoods of students, the people of New York and others around the world."
@@ -60,29 +60,34 @@ Example output:
 ```json
 [
   {
-    "emoji": "🤝",
-    "shortCode": ":handshake:",
-    "reason": "To represent the collaboration between Cornell and its students, the people of New York, and others around the world."
+    "emoji": "🌎",
+    "shortCode": ":earth_americas:",
+    "reason": "Representing the global citizens that Cornell aims to educate"
   },
   {
     "emoji": "📚",
     "shortCode": ":books:",
-    "reason": "To represent Cornell's mission to discover, preserve, and disseminate knowledge."
+    "reason": "Symbolizing the knowledge that Cornell aims to discover, preserve, and disseminate"
   },
   {
-    "emoji": "🌎",
-    "shortCode": ":earth_americas:",
-    "reason": "To represent Cornell's mission to educate the next generation of global citizens."
+    "emoji": "🎓",
+    "shortCode": ":mortar_board:",
+    "reason": "Representing the next generation of students that Cornell aims to educate"
   },
   {
-    "emoji": "🤔",
-    "shortCode": ":thinking:",
-    "reason": "To represent Cornell's mission to promote a culture of broad inquiry."
+    "emoji": "🌱",
+    "shortCode": ":seedling:",
+    "reason": "Symbolizing the growth and development of students at Cornell"
   },
   {
-    "emoji": "🙌",
-    "shortCode": ":raised_hands:",
-    "reason": "To represent Cornell's mission to enhance the lives and livelihoods of its students."
+    "emoji": "🔬",
+    "shortCode": ":microscope:",
+    "reason": "Symbolizing the scientific and research focus of Cornell's mission"
+  },
+  {
+    "emoji": "🌟",
+    "shortCode": ":star2:",
+    "reason": "Symbolizing the impact and influence of Cornell's mission on the world"
   }
 ]
 ```
