@@ -30,7 +30,7 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
     - `AOAI_GPT4_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-4 model you want to use
     - `AOAI_GPT35_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-35 model you want to use
     - `AOAI_GPT4_VISION_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-4 Vision model you want to use
-    - `AOAI_COMPLETIONS_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI completions model (e.g. 'davinci-002') you want to use
+    - `AOAI_INSTRUCT_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI instruct model (e.g. 'gpt-35-turbo-instruct') you want to use
     - `AOAI_DALLE_DEPLOYMENT_NAME` set to the name of the deployed Azure DALL-E 3 model you want to use
     - `AOAI_API_VERSION` set to Azure OpenAI API Version (e.g. `2023-12-01-preview`), supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
     - `AOAI_DALLE_API_VERSION` set to Azure OpenAI DALL-E 3 API Version (e.g. `2023-12-01-preview`)
@@ -105,9 +105,9 @@ locally as a PNG file. The terminal output will show the original prompt, the pa
 the image in the terminal.
 
 Input text:
-> "Detailed image of a clock tower with a pumpkin on the very top of it's spire"
+> "Detailed image of a clock tower on an ivy league college campus with a pumpkin on the very top of it's spire in a hyper realistic photo with natural lighting."
 
 Example generated images:
 
-![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/30a51b59-5613-41c0-b052-af2d9c47035c1683144799.jpg) ![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/5812c9b8-02b7-4fb3-b30c-67d7ed0206321683144799.jpg)
-![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/59890c0f-d9e8-4c27-ba87-5e1a40d9d22d1683144799.jpg) ![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/bc85ca68-be67-4152-bd5d-85e62656bf4c1683144799.jpg)
+![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/16198ee7-f2a0-44ee-a818-97959206527e.jpg) ![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/74ab7781-a594-4347-a922-7585d9f09a8f.jpg)
+![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/c6855b8e-6724-48df-962a-e629e304e0a3.jpg) ![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/a7a8f5d1-1b01-4bc2-8062-e7f17daf04d5.jpg)
