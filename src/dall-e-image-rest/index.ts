@@ -1,4 +1,4 @@
-import { oneLineTrim } from 'common-tags';
+import { oneLine } from 'common-tags';
 import dotenv from 'dotenv';
 import terminalImage from 'terminal-image';
 import yargs from 'yargs';
@@ -20,8 +20,9 @@ const debugStartTime = hrtime();
 // set the prompt for the DALL-E image generation
 const prompt =
   argv.prompt ??
-  oneLineTrim`
-    Detailed image of a clock tower with a pumpkin on the very top of it's spire
+  oneLine`
+    Detailed image of a clock tower on an ivy league college campus with a pumpkin on
+    the very top of it's spire in a hyper realistic photo with natural lighting.
   `;
 
 // set whether or not to display the image in the terminal
