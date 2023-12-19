@@ -4,18 +4,22 @@ import dotenv from 'dotenv';
 import got, { Headers } from 'got';
 import { v4 as uuid } from 'uuid';
 
-import { wait } from './helpers.js';
-
 // load environment variables from .env file
 dotenv.config();
 
 // destructure environment variables we need
 const {
-  OPENAI_BASE_PATH,
-  OPENAI_API_KEY,
-  OPENAI_AZURE_API_VERSION,
-  OPENAI_AZURE_DALLE_API_VERSION,
-  OPENAI_AZURE_MODEL_DEPLOYMENT,
+  AOAI_BASE_PATH,
+  AOAI_API_KEY,
+  AOAI_API_VERSION,
+  AOAI_COMPLETIONS_DEPLOYMENT_NAME,
+  AOAI_DALLE_API_VERSION,
+  AOAI_DALLE_DEPLOYMENT_NAME,
+  AOAI_GPT35_DEPLOYMENT_NAME,
+  AOAI_GPT4_DEPLOYMENT_NAME,
+  AOAI_WHISPER_API_KEY,
+  AOAI_WHISPER_BASE_PATH,
+  AOAI_WHISPER_MODEL_DEPLOYMENT,
 } = process.env;
 
 // ts interfaces
@@ -42,13 +46,25 @@ export interface TextCompletionResponse {
   choices: TextCompletionResponseChoice[];
 }
 
-export interface SubmitImageGenerationRequestParams {
+export interface GenerateImageParams {
   prompt: string;
   apiUrl?: string;
-  resolution?: '1024x1024' | '512x512' | '256x256';
-  format?: 'b64_json';
+  size?: '1024x1024' | '1792x1024' | '1024x1792';
+  response_format?: 'url' | 'b64_json';
+  quality?: 'standard' | 'hd';
+  style?: 'natural' | 'vivid';
   numImages?: number;
   requestHeaders?: Headers;
+}
+
+export interface GenerateImageResponseData {
+  url: string;
+  revised_prompt: string;
+}
+
+export interface GenerateImageResponse {
+  created: number;
+  data: GenerateImageResponseData[];
 }
 
 export interface ImageOperationResponseResult {
@@ -87,17 +103,17 @@ export interface SaveImageGenerationResultParams {
 export const defaultHeaders = (
   userAgent = 'cloud-team-automation'
 ): Headers => {
-  if (!OPENAI_API_KEY) {
+  if (!AOAI_API_KEY) {
     throw new Error(
       oneLineTrim`
       Missing one or more required environment variables:
 
-      OPENAI_API_KEY
+      AOAI_API_KEY
     `
     );
   }
   return {
-    'api-key': OPENAI_API_KEY,
+    'api-key': AOAI_API_KEY,
     'User-Agent': userAgent,
   };
 };
@@ -108,17 +124,17 @@ export const defaultHeaders = (
  * @returns {string} The URL for generating images.
  */
 export const imageGenerationUrl = (): string => {
-  if (!OPENAI_BASE_PATH || !OPENAI_AZURE_DALLE_API_VERSION) {
+  if (!AOAI_BASE_PATH || !AOAI_DALLE_API_VERSION) {
     throw new Error(
       oneLineTrim`
       Missing one or more required environment variables:
 
-      OPENAI_BASE_PATH, OPENAI_AZURE_DALLE_API_VERSION
+      AOAI_BASE_PATH, AOAI_DALLE_API_VERSION
     `
     );
   }
 
-  return `${OPENAI_BASE_PATH}dalle/text-to-image?api-version=${OPENAI_AZURE_DALLE_API_VERSION}`;
+  return `${AOAI_BASE_PATH}openai/deployments/${AOAI_DALLE_DEPLOYMENT_NAME}/images/generations?api-version=${AOAI_DALLE_API_VERSION}`;
 };
 
 /**
@@ -126,23 +142,19 @@ export const imageGenerationUrl = (): string => {
  * @description This function returns the URL for text completion using Azure OpenAI's API.
  * @returns {string} The URL for text completion.
  */
-export const textCompletionUrl = (): string => {
+export const textCompletionUrl = (modelDeploymentName = 'gpt-4'): string => {
   // check that all required environment variables are set
-  if (
-    !OPENAI_BASE_PATH ||
-    !OPENAI_AZURE_MODEL_DEPLOYMENT ||
-    !OPENAI_AZURE_API_VERSION
-  ) {
+  if (!AOAI_BASE_PATH || !AOAI_API_VERSION) {
     throw new Error(
       oneLineTrim`
       Missing one or more required environment variables:
 
-      OPENAI_BASE_PATH, OPENAI_AZURE_MODEL_DEPLOYMENT, OPENAI_AZURE_API_VERSION
+      AOAI_BASE_PATH, AOAI_API_VERSION
     `
     );
   }
 
-  return `${OPENAI_BASE_PATH}/openai/deployments/${OPENAI_AZURE_MODEL_DEPLOYMENT}/completions?api-version=${OPENAI_AZURE_API_VERSION}`;
+  return `${AOAI_BASE_PATH}/openai/deployments/${modelDeploymentName}/completions?api-version=${AOAI_API_VERSION}`;
 };
 
 /**
@@ -158,14 +170,16 @@ export const textCompletionUrl = (): string => {
  * @param {Headers} [params.requestHeaders] - The headers for the request.
  * @returns {Promise<string>} A promise that resolves with the image generation operation URL.
  */
-export const submitImageGenerationRequest = async ({
-  prompt: caption,
+export const createImage = async ({
+  prompt,
   apiUrl: url = imageGenerationUrl(),
-  resolution = '1024x1024',
-  format = 'b64_json',
-  numImages: n = 1,
+  size = '1024x1024',
+  quality = 'standard',
+  response_format = 'url',
+  numImages: n = 1, // only 1 supported at this time
+  style = 'natural',
   requestHeaders = defaultHeaders(),
-}: SubmitImageGenerationRequestParams): Promise<string> => {
+}: GenerateImageParams): Promise<GenerateImageResponse> => {
   const createImageResponse = await got({
     method: 'POST',
     url,
@@ -174,62 +188,16 @@ export const submitImageGenerationRequest = async ({
       'Content-Type': 'application/json',
     },
     json: {
-      caption,
-      resolution,
-      format,
       n,
+      prompt,
+      quality,
+      response_format,
+      size,
+      style,
     },
-  });
+  }).json();
 
-  // extract operation url from the response headers
-  const imageOperationUrl = createImageResponse.headers[
-    'operation-location'
-  ] as string;
-  // console.log(imageOperationUrl);
-  return imageOperationUrl;
-};
-
-/**
- * @async
- * @function
- * @description This function gets the result of an image generation request using OpenAI's DALL-E API.
- * @param {GetImageGenerationResultParams} params - object with parameters for the request.
- * @param {string} params.operationUrl - The URL for the operation.
- * @param {Headers} [params.requestHeaders] - The headers for the request.
- * @returns {Promise<string>} A promise that resolves with the generated image.
- */
-export const getImageGenerationResult = async ({
-  imageOperationUrl: url,
-  requestHeaders = defaultHeaders(),
-}: GetImageGenerationResultParams): Promise<string> => {
-  // set a couple variables used in the loop
-  let retryNumber = 0;
-  let imageUrl = undefined;
-
-  // make requests to the operation url until the image url is returned
-  while (imageUrl === undefined) {
-    const imageOperationResponse = await got({
-      url,
-      method: 'GET',
-      headers: {
-        ...requestHeaders,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    const imageOperationResponseBody = JSON.parse(
-      imageOperationResponse.body
-    ) as ImageOperationResponse;
-
-    const imageResult: ImageOperationResponseResult =
-      imageOperationResponseBody.result;
-    imageUrl = imageResult.contentUrl;
-    // exponentially back-off based on retry number
-    await wait(2 ** retryNumber * 10);
-    retryNumber += 1;
-  }
-
-  return imageUrl;
+  return createImageResponse;
 };
 
 /**
@@ -285,7 +253,7 @@ export const saveImageGenerationResult = async ({
  */
 export const doTextCompletion = async ({
   prompt,
-  apiUrl: url = textCompletionUrl(),
+  apiUrl: url = textCompletionUrl(AOAI_COMPLETIONS_DEPLOYMENT_NAME),
   requestHeaders = defaultHeaders(),
   maxTokens: max_tokens = 1000,
   temperature = 0.2,
@@ -327,15 +295,12 @@ export const doTextCompletion = async ({
  * @returns {Promise<string>} A promise that resolves with the path to the saved image.
  */
 export const generateAndSaveImage = async (prompt: string): Promise<string> => {
-  const imageOperationUrl = await submitImageGenerationRequest({
+  const imageGenerationResponse = await createImage({
     prompt,
   });
-  // console.log(imageOperationUrl);
+  // console.log(imageGenerationResponse);
 
-  const imageUrl = await getImageGenerationResult({
-    imageOperationUrl,
-  });
-  // console.log(imageUrl);
+  const imageUrl = imageGenerationResponse.data[0].url;
 
   const savedImagePath = await saveImageGenerationResult({
     imageUrl,
