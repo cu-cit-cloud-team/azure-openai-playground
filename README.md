@@ -34,11 +34,16 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
     - `AOAI_DALLE_DEPLOYMENT_NAME` set to the name of the deployed Azure DALL-E 3 model you want to use
     - `AOAI_API_VERSION` set to Azure OpenAI API Version (e.g. `2023-12-01-preview`), supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
     - `AOAI_DALLE_API_VERSION` set to Azure OpenAI DALL-E 3 API Version (e.g. `2023-12-01-preview`)
+    - `AOAI_WHISPER_API_KEY` - set to your Azure OpenAI Whisper resource API key if different from `AOAI_API_KEY`
+    - `AOAI_WHISPER_BASE_PATH` - set to your Azure OpenAI Whisper resource endpoint if different from `AOAI_BASE_PATH`
+    - `AOAI_WHISPER_MODEL_DEPLOYMENT` - set to the name of the deployed Azure OpenAI Whisper model you want to use
+    - `AOAI_WHISPER_API_VERSION` - set to Azure OpenAI Whisper API Version (e.g. `2023-09-01-preview`)
 1. Run one of the demos:
     - `npm run text-completion-demo` ([demo info](#text-completion-demo-using-official-nodejs-openai-library))
     - `npm run text-completion-rest-demo` ([demo info](#text-completion-demo-using-rest-api))
     - `npm run image-generation-demo` ([demo info](#image-generation-demo-using-rest-api))
     - `npm run gpt4-chatbot-demo` ([demo info](#gtp-4-chatbot-demo-using-official-nodejs-openai-library))
+    - `npm run whisper-transcribe-mp3-demo` ([demo info](#whisper-transcribe-mp3-demo-using-official-nodejs-openai-library))
 
 ## Demos
 
@@ -125,3 +130,57 @@ Example generated images:
 Uses the official Node.js OpenAI library to access an Azure OpenAI resource endpoint and create a streaming chatbot experience.
 
 Once demo is started, you can begin chatting with the bot by typing in the terminal. The bot will respond to your messages and you will get a new prompt to continue the conversation once the bot response is complete. The current conversation is included with each new message you send (as in, the bot retains context of your entire conversation as you continue chatting) and you can continue the conversation as long as you like. To exit the demo, type `ctrl+c` in the terminal.
+
+### Whisper Transcribe MP3 Demo (using official Node.js OpenAI library)
+
+Uses the official Node.js OpenAI library to access an Azure OpenAI Whisper resource endpoint and transcribe an MP3 file.
+
+Included audio is a 30 second clip taken from this interview of Martha Pollack (beginning at the 5 second mark): <https://www.youtube.com/watch?v=UxuzJ-NJ1yQ&t=5s>
+
+<audio controls src="./src/whisper-transcribe-mp3/audio/martha-pollack.mp3"></audio>
+
+#### Example Results
+
+##### Text
+
+> I think the thing I have learned as I've gotten older is that you have to play the hand you're dealt. You can't always control the circumstances around you. Certainly in a leadership position, you can't always decide what challenges you're going to face. And you can either spend time bemoaning that fact and wishing it were different, or you can roll up your arms and deal with it. And, you know, I'm an old bridge player, and one thing I learned from playing bridge is that sometimes you can have the most impact when you do well with a really crummy hand.
+
+##### SRT
+
+```plaintext
+1
+00:00:00,000 --> 00:00:07,000
+I think the thing I have learned as I've gotten older is that you have to play the hand you're dealt.
+
+2
+00:00:07,000 --> 00:00:10,000
+You can't always control the circumstances around you.
+
+3
+00:00:10,000 --> 00:00:14,000
+Certainly in a leadership position, you can't always decide what challenges you're going to face.
+
+4
+00:00:14,000 --> 00:00:18,000
+And you can either spend time bemoaning that fact and wishing it were different,
+
+5
+00:00:18,000 --> 00:00:20,000
+or you can roll up your arms and deal with it.
+
+6
+00:00:20,000 --> 00:00:24,000
+And, you know, I'm an old bridge player, and one thing I learned from playing bridge
+
+7
+00:00:24,000 --> 00:00:29,000
+is that sometimes you can have the most impact when you do well with a really crummy hand.
+```
+
+##### JSON
+
+```json
+{
+  "text": "I think the thing I have learned as I've gotten older is that you have to play the hand you're dealt. You can't always control the circumstances around you. Certainly in a leadership position, you can't always decide what challenges you're going to face. And you can either spend time bemoaning that fact and wishing it were different, or you can roll up your arms and deal with it. And, you know, I'm an old bridge player, and one thing I learned from playing bridge is that sometimes you can have the most impact when you do well with a really crummy hand."
+}
+```
