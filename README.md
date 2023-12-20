@@ -44,6 +44,7 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
     - `npm run image-generation-demo` ([demo info](#image-generation-demo-using-rest-api))
     - `npm run gpt4-chatbot-demo` ([demo info](#gtp-4-chatbot-demo-using-official-nodejs-openai-library))
     - `npm run whisper-transcribe-mp3-demo` ([demo info](#whisper-transcribe-mp3-demo-using-official-nodejs-openai-library))
+    - `npm run gpt4-vision-demo` ([demo info](#gpt-4-vision-demo-using-official-nodejs-openai-library))
 
 ## Demos
 
@@ -98,6 +99,8 @@ Example output:
 ]
 ```
 
+---
+
 ### Text Completion Demo (using REST API)
 
 Uses [Got HTTP request library](https://github.com/sindresorhus/got) to access an Azure OpenAI resource endpoint and generate
@@ -105,6 +108,8 @@ a completion with a text model.
 
 This demo does the same as the above demo, but uses the REST API directly (vs the official Node.js OpenAI library). See above
 for more details, input text, and example output.
+
+---
 
 ### Image Generation Demo (using REST API)
 
@@ -125,11 +130,15 @@ Example generated images:
 [![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/9068a4fd-c2c2-4e46-961e-f4cc13633365.jpg)](./src/dall-e-image-rest/generated-images/9068a4fd-c2c2-4e46-961e-f4cc13633365.png)
 [![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/59681c4f-64a8-4bc1-aa40-eca11b9e6628.jpg)](./src/dall-e-image-rest/generated-images/59681c4f-64a8-4bc1-aa40-eca11b9e6628.png)
 
+---
+
 ### GTP-4 Chatbot Demo (using official Node.js OpenAI library)
 
 Uses the official Node.js OpenAI library to access an Azure OpenAI resource endpoint and create a streaming chatbot experience.
 
 Once demo is started, you can begin chatting with the bot by typing in the terminal. The bot will respond to your messages and you will get a new prompt to continue the conversation once the bot response is complete. The current conversation is included with each new message you send (as in, the bot retains context of your entire conversation as you continue chatting) and you can continue the conversation as long as you like. To exit the demo, type `ctrl+c` in the terminal.
+
+---
 
 ### Whisper Transcribe MP3 Demo (using official Node.js OpenAI library)
 
@@ -184,3 +193,21 @@ is that sometimes you can have the most impact when you do well with a really cr
   "text": "I think the thing I have learned as I've gotten older is that you have to play the hand you're dealt. You can't always control the circumstances around you. Certainly in a leadership position, you can't always decide what challenges you're going to face. And you can either spend time bemoaning that fact and wishing it were different, or you can roll up your arms and deal with it. And, you know, I'm an old bridge player, and one thing I learned from playing bridge is that sometimes you can have the most impact when you do well with a really crummy hand."
 }
 ```
+
+---
+
+### GPT-4 Vision Demo (using official Node.js OpenAI library)
+
+Uses the official Node.js OpenAI library to access an Azure OpenAI resource endpoint and generate a completion with a gpt-4 vision model.
+
+Demo analyzes one of the dall-e 3 generated images from the above demo and returns a description of it.
+
+Input image:
+
+![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/5d811f1e-5ad7-4d88-bb46-09ae474003b4.jpg)
+
+Example output:
+
+> The image shows an old-style clock tower, probably from a church or old building, with two large round clocks on its front. At the top of the tower, instead of a traditional spire or done, there is a giant orange pumpkin. The pumpkin is sitting on a thin, pointed tip of the tower and appears to be balanced precariously. The background is a clear blue sky.
+
+---
