@@ -114,5 +114,7 @@ Input text:
 
 Example generated images:
 
-![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/16198ee7-f2a0-44ee-a818-97959206527e.jpg) ![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/74ab7781-a594-4347-a922-7585d9f09a8f.jpg)
-![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/c6855b8e-6724-48df-962a-e629e304e0a3.jpg) ![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/a7a8f5d1-1b01-4bc2-8062-e7f17daf04d5.jpg)
+[![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/5d811f1e-5ad7-4d88-bb46-09ae474003b4.jpg)](./src/dall-e-image-rest/generated-images/5d811f1e-5ad7-4d88-bb46-09ae474003b4.png)
+[![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/496d7a9c-b5bb-43a6-9d06-0d4475a6c939.jpg)](./src/dall-e-image-rest/generated-images/496d7a9c-b5bb-43a6-9d06-0d4475a6c939.png)
+[![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/9068a4fd-c2c2-4e46-961e-f4cc13633365.jpg)](./src/dall-e-image-rest/generated-images/9068a4fd-c2c2-4e46-961e-f4cc13633365.png)
+[![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/59681c4f-64a8-4bc1-aa40-eca11b9e6628.jpg)](./src/dall-e-image-rest/generated-images/59681c4f-64a8-4bc1-aa40-eca11b9e6628.png)
