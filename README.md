@@ -38,6 +38,7 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
     - `npm run text-completion-demo` ([demo info](#text-completion-demo-using-official-nodejs-openai-library))
     - `npm run text-completion-rest-demo` ([demo info](#text-completion-demo-using-rest-api))
     - `npm run image-generation-demo` ([demo info](#image-generation-demo-using-rest-api))
+    - `npm run gpt4-chatbot-demo` ([demo info](#gtp-4-chatbot-demo-using-official-nodejs-openai-library))
 
 ## Demos
 
@@ -118,3 +119,9 @@ Example generated images:
 [![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/496d7a9c-b5bb-43a6-9d06-0d4475a6c939.jpg)](./src/dall-e-image-rest/generated-images/496d7a9c-b5bb-43a6-9d06-0d4475a6c939.png)
 [![Generated Image 3](./src/dall-e-image-rest/generated-images/thumbnails/9068a4fd-c2c2-4e46-961e-f4cc13633365.jpg)](./src/dall-e-image-rest/generated-images/9068a4fd-c2c2-4e46-961e-f4cc13633365.png)
 [![Generated Image 4](./src/dall-e-image-rest/generated-images/thumbnails/59681c4f-64a8-4bc1-aa40-eca11b9e6628.jpg)](./src/dall-e-image-rest/generated-images/59681c4f-64a8-4bc1-aa40-eca11b9e6628.png)
+
+### GTP-4 Chatbot Demo (using official Node.js OpenAI library)
+
+Uses the official Node.js OpenAI library to access an Azure OpenAI resource endpoint and create a streaming chatbot experience.
+
+Once demo is started, you can begin chatting with the bot by typing in the terminal. The bot will respond to your messages and you will get a new prompt to continue the conversation once the bot response is complete. The current conversation is included with each new message you send (as in, the bot retains context of your entire conversation as you continue chatting) and you can continue the conversation as long as you like. To exit the demo, type `ctrl+c` in the terminal.
