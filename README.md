@@ -202,12 +202,38 @@ Uses the official Node.js OpenAI library to access an Azure OpenAI resource endp
 
 Demo analyzes one of the dall-e 3 generated images from the above demo and returns a description of it.
 
+Input text:
+
+> Describe this image
+
 Input image:
 
-![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/5d811f1e-5ad7-4d88-bb46-09ae474003b4.jpg)
+![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/5d811f1e-5ad7-4d88-bb46-09ae474003b4.jpg)
 
 Example output:
 
 > The image shows an old-style clock tower, probably from a church or old building, with two large round clocks on its front. At the top of the tower, instead of a traditional spire or done, there is a giant orange pumpkin. The pumpkin is sitting on a thin, pointed tip of the tower and appears to be balanced precariously. The background is a clear blue sky.
+
+---
+
+### GPT-4 Vision Compare Demo (using official Node.js OpenAI library)
+
+Uses the official Node.js OpenAI library to access an Azure OpenAI resource endpoint and generate a completion with a gpt-4 vision model.
+
+Demo analyzes two of the dall-e 3 generated images from the above demo and returns a comparison of them.
+
+Input text:
+
+> What are in these images? Is there any difference between them?
+
+Input images:
+
+![Generated Image 1](./src/dall-e-image-rest/generated-images/thumbnails/5d811f1e-5ad7-4d88-bb46-09ae474003b4.jpg)
+
+![Generated Image 2](./src/dall-e-image-rest/generated-images/thumbnails/496d7a9c-b5bb-43a6-9d06-0d4475a6c939.jpg)
+
+Example output:
+
+> Both images show a tower with clocks and a pumpkin on top. The second image is a black and white version of the first image, with some parts colored in yellow.
 
 ---
