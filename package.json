@@ -14,6 +14,7 @@
     "english-translator-demo": "npm run prod -- ./src/english-translator/index.ts",
     "gpt4-chatbot-demo": "npm run prod -- ./src/gpt4-chatbot/index.ts",
     "gpt4-vision-demo": "npm run prod -- ./src/gpt4-vision/index.ts",
+    "gpt4-vision-compare-demo": "npm run prod -- ./src/gpt4-vision-compare/index.ts",
     "image-generation-demo": "npm run prod -- ./src/dall-e-image-rest/index.ts",
     "poetry-generator-demo": "npm run prod -- ./src/poetry-generator/index.ts ",
     "prod": "cross-env NODE_ENV=production npx tsx ",
