@@ -21,8 +21,8 @@ const debugStartTime = hrtime();
 const prompt =
   argv.prompt ??
   oneLine`
-    Detailed image of a clock tower on an ivy league college campus with a pumpkin on
-    the very top of it's spire in a hyper realistic photo with natural lighting.
+    Detailed image of the Cornell University clock tower with a pumpkin mounted on
+    the very top of it's spire, in a realistic photo with natural lighting.
   `;
 
 // set whether or not to display the image in the terminal
