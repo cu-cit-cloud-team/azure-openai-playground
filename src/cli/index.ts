@@ -120,7 +120,7 @@ switch (startChoice) {
         name: 'answer',
         message: 'Describe the image you would like to generate',
         default:
-          'Detailed image of a clock tower with a pumpkin on the very top of its spire',
+          "Realistic photo of the Cornell University clock tower with a pumpkin mounted on the very top of it's spire.",
       })
       .then((response: Answers) => response.answer as string)
       .catch((err: unknown) => {
