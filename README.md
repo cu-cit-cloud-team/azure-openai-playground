@@ -110,7 +110,7 @@ locally as a PNG file. The terminal output will show the original prompt, the pa
 the image in the terminal.
 
 Input text:
-> "Detailed image of a clock tower on an ivy league college campus with a pumpkin on the very top of it's spire in a hyper realistic photo with natural lighting."
+> "Detailed image of the Cornell University clock tower with a pumpkin mounted on the very top of it's spire, in a realistic photo with natural lighting."
 
 Example generated images:
 
