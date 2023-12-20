@@ -13,6 +13,7 @@
     "dev": "cross-env NODE_ENV=development LOCAL_DEV=true npx tsx --trace-warnings ",
     "english-translator-demo": "npm run prod -- ./src/english-translator/index.ts",
     "gpt4-chatbot-demo": "npm run prod -- ./src/gpt4-chatbot/index.ts",
+    "gpt4-vision-demo": "npm run prod -- ./src/gpt4-vision/index.ts",
     "image-generation-demo": "npm run prod -- ./src/dall-e-image-rest/index.ts",
     "poetry-generator-demo": "npm run prod -- ./src/poetry-generator/index.ts ",
     "prod": "cross-env NODE_ENV=production npx tsx ",
@@ -21,7 +22,8 @@
     "text-completion-demo": "npm run prod -- ./src/text-to-emoji-lib/index.ts",
     "text-completion-rest-demo": "npm run prod -- ./src/text-to-emoji-rest/index.ts",
     "typecheck": "npx tsc --noEmit",
-    "typedoc": "npx typedoc --out ./docs --entryPointStrategy expand ./src/lib --plugin typedoc-plugin-markdown --readme none"
+    "typedoc": "npx typedoc --out ./docs --entryPointStrategy expand ./src/lib --plugin typedoc-plugin-markdown --readme none",
+    "whisper-transcribe-mp3-demo": "npm run prod -- ./src/whisper-transcribe-mp3/index.ts"
   },
   "engines": {
     "node": ">= 20.x",
