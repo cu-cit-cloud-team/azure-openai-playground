@@ -67,7 +67,7 @@ const description = await openAI.chat.completions.create({
     {
       role: 'user',
       content: [
-        { type: 'text', text: 'Describe this image?' },
+        { type: 'text', text: 'Describe this image' },
         {
           type: 'image_url',
           image_url: {
