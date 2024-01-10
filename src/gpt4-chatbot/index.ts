@@ -1,9 +1,9 @@
 import readline from 'node:readline';
+import { ChatOpenAI } from '@langchain/openai';
 import chalk from 'chalk';
-import { oneLineTrim } from 'common-tags';
+import { oneLine } from 'common-tags';
 import dotenv from 'dotenv';
 import inquirer, { Answers } from 'inquirer';
-import OpenAI from 'openai';
 
 import { showGoodbye } from '../lib/helpers.js';
 
@@ -21,7 +21,7 @@ const {
 // check that all required environment variables are set
 if (!AOAI_API_KEY || !AOAI_BASE_PATH || !AOAI_GPT4_DEPLOYMENT_NAME) {
   throw new Error(
-    oneLineTrim`
+    oneLine`
       Missing one or more required environment variables:
 
       AOAI_API_KEY, AOAI_BASE_PATH, AOAI_GPT4_DEPLOYMENT_NAME
@@ -41,11 +41,13 @@ process.stdin.on('keypress', (ch, key) => {
 });
 
 // instantiate the OpenAI client for Azure OpenAI
-const openAI = new OpenAI({
-  apiKey: AOAI_API_KEY,
-  baseURL: `${AOAI_BASE_PATH}openai/deployments/${AOAI_GPT4_DEPLOYMENT_NAME}`,
-  defaultQuery: { 'api-version': '2023-08-01-preview' },
-  defaultHeaders: { 'api-key': AOAI_API_KEY },
+const chat = new ChatOpenAI({
+  azureOpenAIApiKey: AOAI_API_KEY,
+  azureOpenAIBasePath: `${AOAI_BASE_PATH}openai/deployments/`,
+  azureOpenAIApiVersion: '2023-12-01-preview',
+  azureOpenAIApiDeploymentName: AOAI_GPT4_DEPLOYMENT_NAME,
+  temperature: 0,
+  maxTokens: 2000,
 });
 
 console.clear();
@@ -54,20 +56,20 @@ console.log(
   chalk.bold.italic.green('Connection established... begin chatting!')
 );
 
-const systemMessage: OpenAI.Chat.CreateChatCompletionRequestMessage = {
-  role: 'system',
-  content: 'You are an AI assistant that helps people find information.',
-};
+const systemMessage = [
+  'system',
+  'You are an AI assistant that helps people find information.',
+];
 
-// const systemMessage = {
-//   role: 'system',
-//   content: oneLineTrim`
+// const systemMessage = [
+//   'system',
+//   oneLine`
 //     You are a level 1 technical support assistant for central information
 //     technology at an ivy league university. You do a wonderful job but
 //     have a bad attitude and usually provide helpful information in a
 //     sarcastic way.
 //   `,
-// };
+// ];
 
 const messages = [systemMessage];
 
@@ -81,33 +83,22 @@ const chatPrompt = async (): Promise<void> => {
 
   const { message } = answer;
 
-  messages.push({ role: 'user', content: (message as string).trim() });
+  messages.push(['user', (message as string).trim()]);
 
-  let stream;
-  try {
-    stream = await openAI.chat.completions.create({
-      model: AOAI_GPT4_DEPLOYMENT_NAME,
-      messages,
-      stream: true,
-    });
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
+  const stream = await chat.stream(messages);
 
   if (stream) {
     // console.log(stream);
     let fullResponse = '';
     process.stdout.write('🤖  ');
-    for await (const part of stream) {
-      const textPart = part.choices[0]?.delta?.content || '';
+    for await (const chunk of stream) {
+      const textPart = chunk?.content || '';
       fullResponse += textPart;
       process.stdout.write(chalk.blue(textPart));
     }
     if (fullResponse.length) {
-      messages.push({ role: 'assistant', content: fullResponse });
+      messages.push(['assistant', fullResponse]);
     }
-    stream = null;
     console.log('');
   }
 
