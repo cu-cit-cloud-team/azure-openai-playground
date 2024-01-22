@@ -54,7 +54,7 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.2",
+    "@biomejs/biome": "1.5.3",
     "@types/common-tags": "1.8.4",
     "@types/figlet": "1.5.8",
     "@types/inquirer": "9.0.7",
