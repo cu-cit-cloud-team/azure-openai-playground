@@ -32,8 +32,8 @@ NOTE: repo code is NOT production ready, use at your own risk :sweat_smile:
     - `AOAI_GPT4_VISION_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI GPT-4 Vision model you want to use
     - `AOAI_INSTRUCT_DEPLOYMENT_NAME` set to the name of the deployed Azure OpenAI instruct model (e.g. 'gpt-35-turbo-instruct') you want to use
     - `AOAI_DALLE_DEPLOYMENT_NAME` set to the name of the deployed Azure DALL-E 3 model you want to use
-    - `AOAI_API_VERSION` set to Azure OpenAI API Version (e.g. `2023-12-01-preview`), supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
-    - `AOAI_DALLE_API_VERSION` set to Azure OpenAI DALL-E 3 API Version (e.g. `2023-12-01-preview`)
+    - `AOAI_API_VERSION` set to Azure OpenAI API Version (e.g. `2024-02-15-preview`), supported versions available here: <https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#completions>
+    - `AOAI_DALLE_API_VERSION` set to Azure OpenAI DALL-E 3 API Version (e.g. `2024-02-15-preview`)
     - `AOAI_WHISPER_API_KEY` - set to your Azure OpenAI Whisper resource API key if different from `AOAI_API_KEY`
     - `AOAI_WHISPER_BASE_PATH` - set to your Azure OpenAI Whisper resource endpoint if different from `AOAI_BASE_PATH`
     - `AOAI_WHISPER_MODEL_DEPLOYMENT` - set to the name of the deployed Azure OpenAI Whisper model you want to use
