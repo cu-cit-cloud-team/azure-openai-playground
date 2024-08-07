@@ -60,7 +60,7 @@
     "@types/inquirer": "9.0.7",
     "@types/node": "22.1.0",
     "@types/uuid": "10.0.0",
-    "@types/yargs": "17.0.32",
+    "@types/yargs": "17.0.33",
     "cross-env": "7.0.3",
     "cz-git": "1.9.4",
     "tsx": "4.16.5",
