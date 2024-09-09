@@ -47,7 +47,7 @@
     "got": "14.4.2",
     "inquirer": "10.2.2",
     "langchain": "0.2.18",
-    "openai": "4.58.0",
+    "openai": "4.58.1",
     "ora": "8.1.0",
     "terminal-image": "3.0.0",
     "uuid": "10.0.0",
