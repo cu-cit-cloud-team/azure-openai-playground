@@ -58,7 +58,7 @@
     "@types/common-tags": "1.8.4",
     "@types/figlet": "1.7.0",
     "@types/inquirer": "9.0.7",
-    "@types/node": "22.13.17",
+    "@types/node": "22.14.0",
     "@types/uuid": "10.0.0",
     "@types/yargs": "17.0.33",
     "cross-env": "7.0.3",
