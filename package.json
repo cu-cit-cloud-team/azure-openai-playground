@@ -63,7 +63,7 @@
     "@types/yargs": "17.0.33",
     "cross-env": "7.0.3",
     "cz-git": "1.11.1",
-    "tsx": "4.20.1",
+    "tsx": "4.20.2",
     "typedoc": "0.28.5",
     "typedoc-plugin-markdown": "4.6.4",
     "typescript": "5.8.3"
