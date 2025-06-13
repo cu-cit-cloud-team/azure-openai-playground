@@ -62,7 +62,7 @@
     "@types/uuid": "10.0.0",
     "@types/yargs": "17.0.33",
     "cross-env": "7.0.3",
-    "cz-git": "1.11.1",
+    "cz-git": "1.11.2",
     "tsx": "4.20.3",
     "typedoc": "0.28.5",
     "typedoc-plugin-markdown": "4.6.4",
