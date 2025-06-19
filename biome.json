@@ -1,28 +1,35 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.3.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
   "files": {
-    "ignore": [
-      "**/.git/*",
-      "**/.github/*",
-      "**/.history/*",
-      "**/.vscode/*",
-      "**/node_modules/*",
-      "**/docs/*"
+    "includes": [
+      "**",
+      "!**/.git/**/*",
+      "!**/.github/**/*",
+      "!**/.history/**/*",
+      "!**/.vscode/**/*",
+      "!**/node_modules/**/*",
+      "!**/docs/**/*"
     ]
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "style": {
-        "useBlockStatements": "error"
+        "useBlockStatements": "error",
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
       },
-      "correctness": {
-        "all": true
-      },
+      "correctness": {},
       "suspicious": {
         "noExplicitAny": "warn"
       }
@@ -42,7 +49,7 @@
       "jsxQuoteStyle": "double",
       "quoteStyle": "single",
       "semicolons": "always",
-      "trailingComma": "es5"
+      "trailingCommas": "es5"
     }
   }
 }
