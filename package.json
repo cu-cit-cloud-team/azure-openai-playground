@@ -61,7 +61,7 @@
     "@types/node": "24.1.0",
     "@types/uuid": "10.0.0",
     "@types/yargs": "17.0.33",
-    "cross-env": "7.0.3",
+    "cross-env": "10.0.0",
     "cz-git": "1.12.0",
     "tsx": "4.20.3",
     "typedoc": "0.28.8",
