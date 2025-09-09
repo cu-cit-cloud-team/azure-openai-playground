@@ -43,7 +43,7 @@
     "chalk": "5.6.2",
     "common-tags": "1.8.2",
     "dotenv": "17.2.2",
-    "figlet": "1.9.0",
+    "figlet": "1.9.1",
     "got": "14.4.8",
     "inquirer": "12.9.4",
     "langchain": "0.3.33",
