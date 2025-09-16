@@ -46,7 +46,7 @@
     "figlet": "1.9.1",
     "got": "14.4.8",
     "inquirer": "12.9.6",
-    "langchain": "0.3.33",
+    "langchain": "0.3.34",
     "openai": "5.20.2",
     "ora": "8.2.0",
     "terminal-image": "4.0.0",
