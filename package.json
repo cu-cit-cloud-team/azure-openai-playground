@@ -44,7 +44,7 @@
     "common-tags": "1.8.2",
     "dotenv": "17.2.3",
     "figlet": "1.9.4",
-    "got": "14.6.5",
+    "got": "14.6.6",
     "inquirer": "13.1.0",
     "langchain": "1.2.3",
     "openai": "6.15.0",
