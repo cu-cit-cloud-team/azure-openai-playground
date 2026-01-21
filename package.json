@@ -48,7 +48,7 @@
     "inquirer": "13.2.1",
     "langchain": "1.2.11",
     "openai": "6.16.0",
-    "ora": "9.0.0",
+    "ora": "9.1.0",
     "terminal-image": "4.2.0",
     "uuid": "13.0.0",
     "yargs": "18.0.0"
