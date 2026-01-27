@@ -37,7 +37,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@azure/openai": "1.0.0-beta.13",
+    "@azure/openai": "2.0.0",
     "benny-hill": "1.3.0",
     "boxen": "8.0.1",
     "chalk": "5.6.2",
