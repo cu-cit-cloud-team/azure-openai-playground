@@ -45,7 +45,7 @@
     "dotenv": "17.2.3",
     "figlet": "1.9.4",
     "got": "14.6.6",
-    "inquirer": "13.2.1",
+    "inquirer": "13.2.2",
     "langchain": "1.2.14",
     "openai": "6.16.0",
     "ora": "9.1.0",
